@@ -1,14 +1,14 @@
 <?php
-require_once("../p/.priv.php");
+require_once("p/.priv.php");
 
 error_reporting(E_ERROR | E_PARSE);
 
 $apiURL = "https://osu.ppy.sh/api/";
 
-$templateDirectory = "../templates/";
-$flagsDirectory = "../flags/";
-$modesDirectory = "../modes/";
-$fontDirectory = "../fonts/";
+$templateDirectory = "templates/";
+$flagsDirectory = "flags/";
+$modesDirectory = "modes/";
+$fontDirectory = "fonts/";
 
 $fontRegular = $fontDirectory . "exo2regular.ttf";
 $fontMedium = $fontDirectory . "exo2medium.ttf";

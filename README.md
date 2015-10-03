@@ -2,7 +2,7 @@
 This is a signature generator written in PHP for osu!next style signatures. The design is based on flyte's design. Live version with the generator can be found [here](http://cc.nuclearstorm.net/osusig).
 
 ## Usage
-The generator itself is in `class/generator.php`. It accepts the following parameters:
+The generator itself is in `sig.php`. It accepts the following parameters:
 
 * `uname` - **required** The username of the user you want to generate a signature for
 * `colour` - **required** The background and stroke colour of the signature. Can take the name of any file in the templates directory, e.g. `pink`.
@@ -12,21 +12,21 @@ The generator itself is in `class/generator.php`. It accepts the following param
 
 | `colour` | `uname`  | `mode`      | Image |
 | -------- | -------- | ----------- |:-----:|
-| `green`  | `Lemmmy` | unspecified | ![](http://cc.nuclearstorm.net/osusig/class/generator.php?colour=green&uname=Lemmmy) |
-| `pink`   | `peppy`  | `1` | ![](http://cc.nuclearstorm.net/osusig/class/generator.php?colour=pink&uname=peppy&mode=1) |
+| `green`  | `Lemmmy` | unspecified | ![](http://cc.nuclearstorm.net/osusig/sig.php?colour=green&uname=Lemmmy) |
+| `pink`   | `peppy`  | `1` | ![](http://cc.nuclearstorm.net/osusig/sig.php?colour=pink&uname=peppy&mode=1) |
 
 ### Live examples
 
-`http://cc.nuclearstorm.net/osusig/class/generator.php?colour=purple&uname=Lemmmy`
-![](http://cc.nuclearstorm.net/osusig/class/generator.php?colour=purple&uname=Lemmmy)
+`http://cc.nuclearstorm.net/osusig/sig.php?colour=purple&uname=Lemmmy`
+![](http://cc.nuclearstorm.net/osusig/sig.php?colour=purple&uname=Lemmmy)
 
 
-`http://cc.nuclearstorm.net/osusig/class/generator.php?colour=blue&uname=rrtyui`
-![](http://cc.nuclearstorm.net/osusig/class/generator.php?colour=blue&uname=rrtyui)
+`http://cc.nuclearstorm.net/osusig/sig.php?colour=blue&uname=rrtyui`
+![](http://cc.nuclearstorm.net/osusig/sig.php?colour=blue&uname=rrtyui)
 
 
-`http://cc.nuclearstorm.net/osusig/class/generator.php?colour=yellow&uname=jhlee0133&mode=3`
-![](http://cc.nuclearstorm.net/osusig/class/generator.php?colour=yellow&uname=jhlee0133&mode=3)
+`http://cc.nuclearstorm.net/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3`
+![](http://cc.nuclearstorm.net/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3)
 
 ## Requirements
 The generator itself requires PHP GD. As well as this, you will need a file in `p/` called `.priv.php` with contents like such:
