@@ -61,7 +61,7 @@ ul.colours {
     li {
         display: inline-block;
         padding: 12px;
-        border-radius: 2px;
+        border-radius: 4px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);   
         color: white;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);        
@@ -106,15 +106,15 @@ ul.modes {
         text-align: center;
         
         &.selected {
-            background-color: #686868;
-            border: 2px solid #FFF;
+            background-color: #b17;
+            border: 2px solid #f6a;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),
                 0 0 6px rgba(0, 0, 0, 0.15),
                 0 1px 3px rgba(0, 0, 0, 0.25) inset;      
         }
         
         &:hover {
-            border: 2px solid #FFF;
+            border: 2px solid #fff;
             box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
         }
         
