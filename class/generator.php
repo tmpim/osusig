@@ -54,10 +54,55 @@ switch ($mode) {
         break;
 }
 
-$userInfo = json_decode(file_get_contents($apiURL . "get_user" . "?" .
+
+/***
+* Cheers to Repflez
+* https://github.com/Repflez/osu-API-lib/blob/master/lib/file.php
+***/
+
+curl_setopt($ch, CURLOPT_POST, false);
+
+function get_url($url) {    
+    if (function_exists('curl_init')) {
+        $ch = curl_init();
+        $options = array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 5,
+            CURLOPT_HTTPHEADER => array('Content-type: application/json') ,
+            CURLOPT_USERAGENT => 'osu!next Signature Generator by Lemmmy',
+        );
+        
+        curl_setopt_array( $ch, $options );
+        
+        $content = curl_exec($ch);
+        
+        if ($_GET['curl']=="test") {
+            $info = curl_getinfo($ch);
+            $info['url'] = "masked";
+            $info['local_ip'] = "masked";
+            $info['local_port'] = "masked";
+            $info['primary_ip'] = "masked";
+            
+            echo("<pre>");
+            print_r($info);
+            echo("</pre>");
+        }
+        
+        curl_close($ch);
+    } else {        
+        $content = file_get_contents($url);
+    }
+
+    return $content;
+}
+
+$userInfo = json_decode(get_url($apiURL . "get_user" . "?" .
                               "k"       . "=" . constant("AKEY") .
                               "&u"       . "=" . $uname .
                               "&m"       . "=" . $mode))[0];
+
+if ($_GET['curl']=="test") return;
 
 function getFontSize ($size) { 
     return ($size * 3) / 4; 
