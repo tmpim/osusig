@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>osu!next Signature Generator</title>
+        
+        <meta name="theme-color" content="#6644cc">
+        <link href='https://fonts.googleapis.com/css?family=Exo+2:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/app.css">
+        
+        <link rel="icon" href="favicon.ico">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+        <script src="js/app.js"></script>
+    </head>
+    <body>
+        <div class="page-header">
+            <span class="title">osu!next Signature Generator</span>
+            <span class="shameless-self-promotion">by <a href="https://osu.ppy.sh/u/4656511">Lemmmy</a></span>
+        </div>
+        <header>Choose a colour</header>
+        <article>
+            <ul class="colours">
+                <li style="background-color: #86e" id="colour-purple">purple</li>
+                <li style="background-color: #f6a" id="colour-pink" class="selected">pink</li>
+                <li style="background-color: #6cf" id="colour-blue">blue</li>
+                <li style="background-color: #fc2" id="colour-yellow">yellow</li>
+                <li style="background-color: #ad0" id="colour-green">green</li>
+            </ul>
+        </article>
+        <header>Set your data</header>
+        <article style="text-align: center;">
+            <label for="uname">Name</label>
+            <input type="text" placeholder="Lemmmy" name="uname" id="uname">
+            <br><br>
+            <label for="mode">Mode</label>
+            <ul class="modes">
+                <li class="osu selected" id="mode-osu"><img src="img/osu.png"><span>osu!</span></li>
+                <li class="taiko" id="mode-taiko"><img src="img/taiko.png"><span>osu!taiko</span></li>
+                <li class="ctb" id="mode-ctb"><img src="img/ctb.png"><span>osu!catch</span></li>
+                <li class="mania" id="mode-mania"><img src="img/mania.png"><span>osu!mania</span></li>
+            </ul>
+        </article>
+        <header>Your Signature</header>
+        <article style="text-align: center;">
+            <div id="previewarea">
+                <img src="class/generator.php?colour=pink&uname=Lemmmy" class="preview lazy" width="338" height="94">
+            </div>
+            <br>
+            <input type="text" name="out" id="out" value="[img]http://cc.nuclearstorm.net/osusig/class/generator.php?colour=pink&uname=Lemmmy[/img]" style="width: 100%">
+            <br><br>
+            <a href="#" id="regen" class="button">Generate</a>
+        </article>
+    </body>
+</html>
