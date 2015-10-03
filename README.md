@@ -1,5 +1,5 @@
 # osu!next Signature Generator
-This is a signature generator written in PHP for osu!next style signatures. The design is based on flyte's design. Live version with the generator can be found [here](http://cc.nuclearstorm.net/osusig).
+This is a signature generator written in PHP for osu!next style signatures. The design is based on flyte's design. Live version with the generator can be found [here](http://lemmmy.pw/osusig).
 
 ## Usage
 The generator itself is in `sig.php`. It accepts the following parameters:
@@ -12,21 +12,21 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 
 | `colour` | `uname`  | `mode`      | Image |
 | -------- | -------- | ----------- |:-----:|
-| `green`  | `Lemmmy` | unspecified | ![](http://cc.nuclearstorm.net/osusig/sig.php?colour=green&uname=Lemmmy) |
-| `pink`   | `peppy`  | `1` | ![](http://cc.nuclearstorm.net/osusig/sig.php?colour=pink&uname=peppy&mode=1) |
+| `green`  | `Lemmmy` | unspecified | ![](http://lemmmy.pw/osusig/sig.php?colour=green&uname=Lemmmy) |
+| `pink`   | `peppy`  | `1` | ![](http://lemmmy.pw/osusig/sig.php?colour=pink&uname=peppy&mode=1) |
 
 ### Live examples
 
-`http://cc.nuclearstorm.net/osusig/sig.php?colour=purple&uname=Lemmmy`
-![](http://cc.nuclearstorm.net/osusig/sig.php?colour=purple&uname=Lemmmy)
+`http://lemmmy.pw/osusig/sig.php?colour=purple&uname=Lemmmy`
+![](http://lemmmy.pw/osusig/sig.php?colour=purple&uname=Lemmmy)
 
 
-`http://cc.nuclearstorm.net/osusig/sig.php?colour=blue&uname=rrtyui`
-![](http://cc.nuclearstorm.net/osusig/sig.php?colour=blue&uname=rrtyui)
+`http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui`
+![](http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui)
 
 
-`http://cc.nuclearstorm.net/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3`
-![](http://cc.nuclearstorm.net/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3)
+`http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3`
+![](http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3)
 
 ## Requirements
 The generator itself requires PHP GD. As well as this, you will need a file in `p/` called `.priv.php` with contents like such:
