@@ -19,22 +19,9 @@ if (!isset($_GET['colour']) || !isset($_GET['uname'])) {
 }
 
 $colour = strtolower($_GET['colour']);
-$colour = strtolower($_GET['colour']);
 $uname = urldecode($_GET['uname']);
 $mode = isset($_GET['mode']) ? $_GET['mode'] : 0;
 $modeName = "osu";
-
-switch ($colour) {
-    case "pink":  
-    case "green":  
-    case "blue":  
-    case "yellow":  
-    case "purple":
-        break;
-    default:
-        die();
-        break;
-}
 
 switch ($mode) {
     case 0:
