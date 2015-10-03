@@ -5,7 +5,7 @@ This is a signature generator written in PHP for osu!next style signatures. The 
 The generator itself is in `class/generator.php`. It accepts the following parameters:
 
 * `uname` - **required** The username of the user you want to generate a signature for
-* `colour` - **required** The background and stroke colour of the signature. Can be any of `pink`, `purple`, `blue`, `yellow` or `green`.
+* `colour` - **required** The background and stroke colour of the signature. Can take the name of any file in the templates directory, e.g. `pink`.
 * `mode` - The gamemode you wish to view stats for. `0` is osu!standard, `1` is osu!taiko, `2` is osu!catch and `3` is osu!mania.
 
 ## Examples
