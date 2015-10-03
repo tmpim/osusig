@@ -10,7 +10,7 @@ $(function() {
             lc = new Date().getTime();
             
             var url = "class/generator.php?colour=" + colour + "&uname=" + name + "&mode=" + mode;
-            var fullurl = "http://cc.nuclearstorm.net/osusig/" + url;
+            var fullurl = "http://lemmmy.pw/osusig/" + url;
 
             $("img.preview").remove();
 
