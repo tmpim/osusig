@@ -12,7 +12,7 @@ $(function() {
             var url = "sig.php?";
             
             url += "colour=" + colour;
-            url += "&uname=" + ($("input[name=uname]").val() || "Lemmmy");
+            url += "&uname=" + encodeURIComponent(($("input[name=uname]").val() || "Lemmmy"));
             url += "&mode=" + mode;
             url += (ppmode >= 0 ? "&pp=" + ppmode : "");
             

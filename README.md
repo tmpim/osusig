@@ -31,7 +31,7 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 ![](http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3&pp=1)
 
 ## Requirements
-The generator requires ImageMagick.
+The generator requires ImageMagick and memcached.
 You will need a file in `p/` called `.priv.php` with contents like such:
 
     <?php

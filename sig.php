@@ -3,6 +3,9 @@ require_once('p/.priv.php');
 
 error_reporting(E_ERROR | E_PARSE);
 
+$mc = new Memcached();
+$mc->addServer("localhost", 11211);
+
 $apiURL = 'https://osu.ppy.sh/api/';
 
 $templateDirectory = 'templates/';
@@ -43,12 +46,16 @@ switch ($mode) {
         break;
 }
 
-$userInfo = json_decode(file_get_contents($apiURL . 'get_user' . '?' .
+$userInfo = $mc->get("stats_" . strtolower($uname));
+    
+if (!$userInfo) {
+    $userInfo = json_decode(file_get_contents($apiURL . 'get_user' . '?' .
                               'k'       . '=' . constant('AKEY') .
                               '&u'       . '=' . $uname .
                               '&m'       . '=' . $mode))[0];
-
-if ($_GET['curl']=='test') return;
+    
+    $mc->set("stats_" . strtolower($uname), $userInfo, 180);
+}
 
 function getFontSize ($size) { 
     return ($size * 3) / 4; 
@@ -137,13 +144,32 @@ $img->annotateImage($draw, 325, 73, 0, number_format($userInfo->playcount) . $le
 
 // avatar
 $avatarURL = 'https://a.ppy.sh/' . $userInfo->user_id . '?' . time() . '.png';
-$avatar = new Imagick($avatarURL);
+$avatar = new Imagick();
+$cachedPicture = $mc->get("profilepicture_" . strtolower($uname));
 
-$avatarSize = isset($_GET['removeavmargin']) ? 88 : 84;
-$avatarPos = isset($_GET['removeavmargin']) ? 3 : 5;
+if (!$cachedPicture) {
+    $avatar = new Imagick($avatarURL);
+    $avatar->setImageFormat('png');
+
+    $mc->set("profilepicture_" . strtolower($uname), base64_encode($avatar->getImageBlob()), 43200);
+} else {
+    $decodedPicture = base64_decode($cachedPicture);
+    $avatar->readImageBlob($decodedPicture);
+    $avatar->setImageFormat('png');
+}
+
+$avatar->setImageMatte(1); 
+
+$avatarSize = isset($_GET['removeavmargin']) ? 80 : 76;
+$avatarPos = isset($_GET['removeavmargin']) ? 7 : 9;
+
+$maskImage = isset($_GET['removeavmargin']) ? "img/mask_80.png" : "img/mask_76.png";
+
+$avatarClipMask = new Imagick($maskImage);
 
 $avatar->resizeImage($avatarSize, $avatarSize, \Imagick::FILTER_CATROM, 1);
-$avatar->roundCorners(2, 2, 3);
+$avatar->compositeImage($avatarClipMask, \Imagick::COMPOSITE_DSTIN, 0, 0);
+
 $img->compositeImage($avatar, \Imagick::COMPOSITE_DEFAULT, $avatarPos, $avatarPos);
 
 echo $img;
