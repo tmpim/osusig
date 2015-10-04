@@ -8,6 +8,7 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 * `colour` - **required** The background and stroke colour of the signature. Can take the name of any file in the templates directory, e.g. `pink`.
 * `mode` - The gamemode you wish to view stats for. `0` is osu!standard, `1` is osu!taiko, `2` is osu!catch and `3` is osu!mania.
 * `pp` - Where you want the pp to be displayed. Undefined does not show at all, `0` shows in place of the level, `1` shows next to the accuracy and `2` shows above the rank.
+* `removeavmargin` - If specified (no value required), there will not be a 3px margin between the card's stroke and the profile picture.
 
 ## Examples
 
