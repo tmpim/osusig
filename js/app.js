@@ -10,7 +10,7 @@ $(function() {
         if (new Date().getTime() >= lc + 500) {
             lc = new Date().getTime();
             
-            var url = "class/generator.php?colour=" + colour + "&uname=" + name + "&mode=" + mode + (ppmode >= 0 ? "&pp=" + ppmode : "");
+            var url = "sig.php?colour=" + colour + "&uname=" + name + "&mode=" + mode + (ppmode >= 0 ? "&pp=" + ppmode : "");
             var fullurl = "http://lemmmy.pw/osusig/" + url;
 
             $("img.preview").remove();
