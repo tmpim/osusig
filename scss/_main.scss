@@ -216,3 +216,21 @@ a.button {
         }
     }
 }
+
+.twocol {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    
+    .twocol-col {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left; 
+    }
+}
+
+@media (max-width: 767px) {
+    .twocol {
+        flex-direction: column;
+    }
+}

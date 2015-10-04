@@ -119,9 +119,9 @@ $textWhite = imagecolorallocate($template, 255, 255, 255);
 $textGrey = imagecolorallocate($template, 85, 85, 85);
 
 // rank
-$rankDimensions = imagettfbbox(getFontSize(14), 0, $fontRegular, "#" . $userInfo->pp_rank);
+$rankDimensions = imagettfbbox(getFontSize(14), 0, $fontRegular, "#" . number_format($userInfo->pp_rank));
 $rankTextWidth = abs($rankDimensions[4] - $rankDimensions[0]);
-imagettftext($template, getFontSize(14), 0, 289 - $rankTextWidth, 31, $textWhite, $fontRegular, "#" . $userInfo->pp_rank);
+imagettftext($template, getFontSize(14), 0, 289 - $rankTextWidth, 31, $textWhite, $fontRegular, "#" . number_format($userInfo->pp_rank));
 
 // name
 $nameFontSize = 24;
@@ -149,7 +149,7 @@ imagecopymerge_alpha($template, $flag, 307, 20, 0, 0, 18, 12, 100);
 // pp
 
 if (isset($_GET['pp']) && $pp == 2) {
-    $ppText = floor($userInfo->pp_raw) . "pp";
+    $ppText = number_format(floor($userInfo->pp_raw)) . "pp";
     $ppDimensions = imagettfbbox(getFontSize(14), 0, $fontBold, $ppText);
     $ppTextWidth = abs($ppDimensions[4] - $ppDimensions[0]);
     imagettftext($template, getFontSize(10), 0, 342 - $ppTextWidth, 17, $textWhite, $fontRegular, $ppText);   
@@ -159,15 +159,15 @@ if (isset($_GET['pp']) && $pp == 2) {
 imagettftext($template, getFontSize(14), 0, 90, 56, $textGrey, $fontRegular, "Accuracy");
 imagettftext($template, getFontSize(14), 0, 90, 73, $textGrey, $fontRegular, "Play count");
 
-$accuracyText = isset($_GET['pp']) && $pp == 1 ? " (" . floor($userInfo->pp_raw) . "pp)" : "";
+$accuracyText = isset($_GET['pp']) && $pp == 1 ? " (" . number_format(floor($userInfo->pp_raw)) . "pp)" : "";
 $accuracyDimensions = imagettfbbox(getFontSize(14), 0, $fontBold, round($userInfo->accuracy, 2) . "%" . $accuracyText);
 $accuracyTextWidth = abs($accuracyDimensions[4] - $accuracyDimensions[0]);
 imagettftext($template, getFontSize(14), 0, 329 - $accuracyTextWidth, 56, $textGrey, $fontBold, round($userInfo->accuracy, 2) . "%" . $accuracyText);
 
-$levelText = isset($_GET['pp']) && $pp == 0 ? " (" . floor($userInfo->pp_raw) . "pp)" : " (lv" . floor($userInfo->level) . ")";
-$playCountDimensions = imagettfbbox(getFontSize(14), 0, $fontBold, $userInfo->playcount . $levelText);
+$levelText = isset($_GET['pp']) && $pp == 0 ? " (" . number_format(floor($userInfo->pp_raw)) . "pp)" : " (lv" . floor($userInfo->level) . ")";
+$playCountDimensions = imagettfbbox(getFontSize(14), 0, $fontBold, number_format($userInfo->playcount) . $levelText);
 $playCountTextWidth = abs($playCountDimensions[4] - $playCountDimensions[0]);
-imagettftext($template, getFontSize(14), 0, 329 - $playCountTextWidth, 73, $textGrey, $fontBold, $userInfo->playcount . $levelText);
+imagettftext($template, getFontSize(14), 0, 329 - $playCountTextWidth, 73, $textGrey, $fontBold, number_format($userInfo->playcount) . $levelText);
 
 // avatar
 $avatarURL = "https://a.ppy.sh/" . $userInfo->user_id . "?" . time() . ".png";
@@ -191,9 +191,12 @@ switch ($avatarType) {
         break;
 }
 
-$avatar = imagescale($avatar, 76, 76, IMG_BICUBIC);   
+$avatarSize = isset($_GET['removeavmargin']) ? 81 : 76;
+$avatarPos = isset($_GET['removeavmargin']) ? 6 : 9;
+$avatar = imagescale($avatar, $avatarSize, $avatarSize, IMG_BILINEAR_FIXED);   
 
-imagecopymerge_alpha($template, $avatar, 9, 9, 0, 0, 76, 76, 100);
+imagecopymerge_alpha($template, $avatar, $avatarPos, $avatarPos, 0, 0, $avatarSize, $avatarSize, 100);
 
 imagepng($template);
+imagedestroy($avatar);
 imagedestroy($template);

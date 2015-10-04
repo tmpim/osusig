@@ -2,7 +2,6 @@ $(function() {
     var colour = "pink";
     var mode = 0;
     var ppmode = -1;
-    var name = "Lemmmy";
     
     var lc = 0;
     
@@ -10,7 +9,15 @@ $(function() {
         if (new Date().getTime() >= lc + 500) {
             lc = new Date().getTime();
             
-            var url = "sig.php?colour=" + colour + "&uname=" + name + "&mode=" + mode + (ppmode >= 0 ? "&pp=" + ppmode : "");
+            var url = "sig.php?";
+            
+            url += "colour=" + colour;
+            url += "&uname=" + ($("input[name=uname]").val() || "Lemmmy");
+            url += "&mode=" + mode;
+            url += (ppmode >= 0 ? "&pp=" + ppmode : "");
+            
+            url += ($("input[name=adv-av-margin]").prop('checked') ? "&removeavmargin" : "");            
+            
             var fullurl = "http://lemmmy.pw/osusig/" + url;
 
             $("img.preview").remove();
@@ -69,9 +76,5 @@ $(function() {
             
             ppmode = $(this).attr('id').replace("ppmode-", "");
         });
-    });
-    
-    $("input[name=uname]").on('change keyup paste', function() {
-        name = $("input[name=uname]").val();  
     });
 });
