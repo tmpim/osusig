@@ -181,3 +181,38 @@ a.button {
         background-color: #e39;
     }
 }
+ 
+.ppmodes {
+    list-style: none;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    
+    li {
+        display: inline-block;
+        padding: 12px;
+        border-radius: 2px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);   
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);        
+        margin: 4px;        
+        transition: 225ms ease;
+        border: 2px solid transparent;
+        cursor: pointer;
+        background-color: #555555;
+        text-align: center;
+        
+        &.selected {
+            background-color: #b17;
+            border: 2px solid #f6a;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),
+                0 0 6px rgba(0, 0, 0, 0.15),
+                0 1px 3px rgba(0, 0, 0, 0.25) inset;      
+        }
+        
+        &:hover {
+            border: 2px solid #fff;
+            box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
+        }
+    }
+}

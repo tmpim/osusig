@@ -19,6 +19,7 @@ if (!isset($_GET['colour']) || !isset($_GET['uname'])) {
 }
 
 $colour = strtolower($_GET['colour']);
+$pp = $_GET['pp'];
 $uname = urldecode($_GET['uname']);
 $mode = isset($_GET['mode']) ? $_GET['mode'] : 0;
 $modeName = "osu";
@@ -128,7 +129,7 @@ $nameFontSize = 24;
 $nameDimensions = imagettfbbox(getFontSize($nameFontSize), 0, $fontMedium, $userInfo->username);
 $nameTextWidth = abs($nameDimensions[4] - $nameDimensions[0]);
 
-while ($nameTextWidth > 210 - $rankTextWidth) {
+while ($nameTextWidth > 200 - $rankTextWidth) {
     $nameDimensions = imagettfbbox(getFontSize($nameFontSize), 0, $fontMedium, $userInfo->username);
     $nameTextWidth = abs($nameDimensions[4] - $nameDimensions[0]);
     
@@ -145,17 +146,28 @@ imagecopymerge_alpha($template, $mode, 290, 20, 0, 0, 12, 12, 100);
 $flag = imagecreatefrompng($flagsDirectory . $userInfo->country . ".png");
 imagecopymerge_alpha($template, $flag, 307, 20, 0, 0, 18, 12, 100);
 
+// pp
+
+if (isset($_GET['pp']) && $pp == 2) {
+    $ppText = floor($userInfo->pp_raw) . "pp";
+    $ppDimensions = imagettfbbox(getFontSize(14), 0, $fontBold, $ppText);
+    $ppTextWidth = abs($ppDimensions[4] - $ppDimensions[0]);
+    imagettftext($template, getFontSize(10), 0, 342 - $ppTextWidth, 17, $textWhite, $fontRegular, $ppText);   
+}
+
 // accuracy
 imagettftext($template, getFontSize(14), 0, 90, 56, $textGrey, $fontRegular, "Accuracy");
 imagettftext($template, getFontSize(14), 0, 90, 73, $textGrey, $fontRegular, "Play count");
 
-$accuracyDimensions = imagettfbbox(getFontSize(14), 0, $fontBold, round($userInfo->accuracy, 2) . "%");
+$accuracyText = isset($_GET['pp']) && $pp == 1 ? " (" . floor($userInfo->pp_raw) . "pp)" : "";
+$accuracyDimensions = imagettfbbox(getFontSize(14), 0, $fontBold, round($userInfo->accuracy, 2) . "%" . $accuracyText);
 $accuracyTextWidth = abs($accuracyDimensions[4] - $accuracyDimensions[0]);
-imagettftext($template, getFontSize(14), 0, 329 - $accuracyTextWidth, 56, $textGrey, $fontBold, round($userInfo->accuracy, 2) . "%");
+imagettftext($template, getFontSize(14), 0, 329 - $accuracyTextWidth, 56, $textGrey, $fontBold, round($userInfo->accuracy, 2) . "%" . $accuracyText);
 
-$playCountDimensions = imagettfbbox(getFontSize(14), 0, $fontBold, $userInfo->playcount . " (lv" . floor($userInfo->level) . ")");
+$levelText = isset($_GET['pp']) && $pp == 0 ? " (" . floor($userInfo->pp_raw) . "pp)" : " (lv" . floor($userInfo->level) . ")";
+$playCountDimensions = imagettfbbox(getFontSize(14), 0, $fontBold, $userInfo->playcount . $levelText);
 $playCountTextWidth = abs($playCountDimensions[4] - $playCountDimensions[0]);
-imagettftext($template, getFontSize(14), 0, 329 - $playCountTextWidth, 73, $textGrey, $fontBold, $userInfo->playcount . " (lv" . floor($userInfo->level) . ")");
+imagettftext($template, getFontSize(14), 0, 329 - $playCountTextWidth, 73, $textGrey, $fontBold, $userInfo->playcount . $levelText);
 
 // avatar
 $avatarURL = "https://a.ppy.sh/" . $userInfo->user_id . "?" . time() . ".png";

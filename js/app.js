@@ -1,6 +1,7 @@
 $(function() {
     var colour = "pink";
     var mode = 0;
+    var ppmode = -1;
     var name = "Lemmmy";
     
     var lc = 0;
@@ -9,7 +10,7 @@ $(function() {
         if (new Date().getTime() >= lc + 500) {
             lc = new Date().getTime();
             
-            var url = "class/generator.php?colour=" + colour + "&uname=" + name + "&mode=" + mode;
+            var url = "class/generator.php?colour=" + colour + "&uname=" + name + "&mode=" + mode + (ppmode >= 0 ? "&pp=" + ppmode : "");
             var fullurl = "http://lemmmy.pw/osusig/" + url;
 
             $("img.preview").remove();
@@ -56,6 +57,17 @@ $(function() {
             } else if ($(this).hasClass("mania")) {
                 mode = 3;
             }
+        });
+    });
+    
+    $(".ppmodes li").each(function() {
+        $(this).click(function() {
+            $(".ppmodes li").each(function() {
+                 $(this).removeClass("selected");
+            });
+            $(this).addClass("selected");
+            
+            ppmode = $(this).attr('id').replace("ppmode-", "");
         });
     });
     

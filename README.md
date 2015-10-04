@@ -7,6 +7,7 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 * `uname` - **required** The username of the user you want to generate a signature for
 * `colour` - **required** The background and stroke colour of the signature. Can take the name of any file in the templates directory, e.g. `pink`.
 * `mode` - The gamemode you wish to view stats for. `0` is osu!standard, `1` is osu!taiko, `2` is osu!catch and `3` is osu!mania.
+* `pp` - Where you want the pp to be displayed. Undefined does not show at all, `0` shows in place of the level, `1` shows next to the accuracy and `2` shows above the rank.
 
 ## Examples
 
@@ -21,12 +22,12 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 ![](http://lemmmy.pw/osusig/sig.php?colour=purple&uname=Lemmmy)
 
 
-`http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui`
-![](http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui)
+`http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui&pp=2`
+![](http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui&pp=2)
 
 
-`http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3`
-![](http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3)
+`http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3&pp=1`
+![](http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3&pp=1)
 
 ## Requirements
 The generator itself requires PHP GD. As well as this, you will need a file in `p/` called `.priv.php` with contents like such:
