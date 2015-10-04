@@ -31,7 +31,8 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 ![](http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3&pp=1)
 
 ## Requirements
-The generator itself requires PHP GD. As well as this, you will need a file in `p/` called `.priv.php` with contents like such:
+The generator requires ImageMagick.
+You will need a file in `p/` called `.priv.php` with contents like such:
 
     <?php
     define("AKEY", "your-osu!-api-key");
