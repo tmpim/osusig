@@ -45,12 +45,22 @@ Favicon is owned by Dean 'peppy' Herbert. The mode icons and flags are designed 
 Everything except the following files are licensed under GPL-v3:
 
 ```
-fonts/
-flags/
-modes/
+fonts/*
+flags/*
+modes/*
 img/ctb.png
 img/mania.png
 img/taiko.png
 img/osu.png
 img/tris.png
+```
+
+The following files are licensed under AGPL-v3 and are from [this](https://github.com/ppy/osu-web) repository:
+```
+fonts/osu!font.ttf
+flags/*
+img/ctb.png
+img/mania.png
+img/taiko.png
+img/osu.png
 ```
