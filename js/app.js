@@ -37,7 +37,12 @@ $(function() {
         }
     }
 
-    $("#regen").click(reloadSig);
+    $("#regen").click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        reloadSig();
+        $("#uname").select();
+    });
 
     $("#uname").keypress(function(e) {
         if(e.which === 13) {
