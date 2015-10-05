@@ -227,6 +227,10 @@ a.button {
         box-sizing: border-box;
         text-align: left; 
     }
+
+    span {
+        display: block;
+    }
 }
 
 @media (max-width: 767px) {

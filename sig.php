@@ -91,6 +91,25 @@ $img->annotateImage($draw, 290, 31, 0, json_decode('"\\ue00' . $mode . '"'));
 // flag
 $flag = new Imagick($flagsDirectory . $userInfo->country . '.png');
 $flag->resizeImage(18, 12, \Imagick::FILTER_CATROM, 1);
+
+if (isset($_GET['flagshadow'])) {
+    $shadow = $flag->clone();
+    $shadow->setImageBackgroundColor(new ImagickPixel('black'));
+
+    $shadow->shadowImage(50, 3, 0, 0);
+
+    $img->compositeImage($shadow, \Imagick::COMPOSITE_DEFAULT, 301, 15);
+}
+
+if (isset($_GET['flagstroke'])) {
+    $flagStroke = new \ImagickDraw();
+
+    $flagStroke->setFillColor("#FFFFFF");
+    $flagStroke->roundRectangle(306, 20, 306 + 19, 20 + 13, 1, 1);
+
+    $img->drawImage($flagStroke);
+}
+
 $img->compositeImage($flag, \Imagick::COMPOSITE_DEFAULT, 307, 21);
 
 // name

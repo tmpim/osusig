@@ -16,8 +16,10 @@ $(function() {
             url += "&mode=" + mode;
             url += (ppmode >= 0 ? "&pp=" + ppmode : "");
             
-            url += ($("input[name=adv-av-margin]").prop('checked') ? "&removeavmargin" : "");            
-            
+            url += ($("input[name=adv-av-margin]").prop('checked') ? "&removeavmargin" : "");
+            url += ($("input[name=adv-flag-shadow]").prop('checked') ? "&flagshadow" : "");
+            url += ($("input[name=adv-flag-stroke]").prop('checked') ? "&flagstroke" : "");
+
             var fullurl = "http://lemmmy.pw/osusig/" + url;
 
             $("img.preview").remove();
