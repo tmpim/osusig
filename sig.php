@@ -47,18 +47,18 @@ switch ($mode) {
 }
 
 $userInfo = $mc->get("stats_" . strtolower($uname));
-    
+
 if (!$userInfo) {
     $userInfo = json_decode(file_get_contents($apiURL . 'get_user' . '?' .
                               'k'       . '=' . constant('AKEY') .
                               '&u'       . '=' . $uname .
                               '&m'       . '=' . $mode))[0];
-    
+
     $mc->set("stats_" . strtolower($uname), $userInfo, 180);
 }
 
-function getFontSize ($size) { 
-    return ($size * 3) / 4; 
+function getFontSize ($size) {
+    return ($size * 3) / 4;
 }
 
 $img = new Imagick($templateDirectory . $colour . '.png');
@@ -78,7 +78,7 @@ $cr = isset($_GET['countryrank']);
 // rank
 $draw->setFont($fontRegular);
 $draw->setFontSize(isset($_GET['countryrank']) ? 12 : 14);
-$draw->setFillColor($textWhite); 
+$draw->setFillColor($textWhite);
 $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
 
 $rankText = '#' . number_format($userInfo->pp_rank) . ($cr ? " (" . '#' . number_format($userInfo->pp_country_rank) . ')' : "");
@@ -130,7 +130,7 @@ $nameTextWidth = abs($nameDimensions[4] - $nameDimensions[0]);
 while ($nameTextWidth > 198 - $rankTextWidth) {
     $nameDimensions = imagettfbbox(getFontSize($nameFontSize), 0, $fontMedium, $userInfo->username);
     $nameTextWidth = abs($nameDimensions[4] - $nameDimensions[0]);
-    
+
     $nameFontSize -= 0.5;
 }
 
@@ -144,7 +144,7 @@ $draw->setFont($fontRegular);
 if (isset($_GET['pp']) && $pp == 2) {
     $draw->setFontSize(10);
     $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
-    
+
     $ppText = number_format(floor($userInfo->pp_raw)) . 'pp';
     $img->annotateImage($draw, $cr ? 293 : 326, 18, 0, $ppText);
 }
@@ -152,7 +152,7 @@ if (isset($_GET['pp']) && $pp == 2) {
 // accuracy & play count
 
 $draw->setFontSize(14);
-$draw->setFillColor($textGrey); 
+$draw->setFillColor($textGrey);
 $draw->setTextAlignment(\Imagick::ALIGN_LEFT);
 
 $img->annotateImage($draw, 91, 56, 0, 'Accuracy');
@@ -184,7 +184,7 @@ if (!$cachedPicture) {
     $avatar->setImageFormat('png');
 }
 
-$avatar->setImageMatte(1); 
+$avatar->setImageMatte(1);
 
 $avatarSize = isset($_GET['removeavmargin']) ? 80 : 76;
 $avatarPos = isset($_GET['removeavmargin']) ? 7 : 9;

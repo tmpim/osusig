@@ -1,13 +1,13 @@
 <html>
     <head>
         <title>osu!next Signature Generator</title>
-        
+
         <meta name="theme-color" content="#6644cc">
         <link href='https://fonts.googleapis.com/css?family=Exo+2:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/app.css">
-        
+
         <link rel="icon" href="favicon.ico">
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
         <script src="js/app.js"></script>
@@ -45,8 +45,8 @@
                 <li class="ctb" id="mode-ctb"><img src="img/ctb.png"><span>osu!catch</span></li>
                 <li class="mania" id="mode-mania"><img src="img/mania.png"><span>osu!mania</span></li>
             </ul>
-            <br><br>  
-            <label for="ppmode">Performance Points Display</label>          
+            <br><br>
+            <label for="ppmode">Performance Points Display</label>
             <ul class="ppmodes">
                 <li id="ppmode--1" class="selected">don't show</li>
                 <li id="ppmode-0">replace level</li>
@@ -59,15 +59,16 @@
         <header>Your Signature</header>
         <article style="text-align: center;">
             <div id="previewarea">
-                <img src="class/generator.php?colour=pink&uname=Lemmmy" class="preview lazy" width="338" height="94">
+                <img src="sig.php?colour=pink&uname=Lemmmy" class="preview lazy" width="338" height="94">
             </div>
             <br>
-            <input type="text" name="out" id="out" value="[img]http://lemmmy.pw/osusig/class/generator.php?colour=pink&uname=Lemmmy[/img]" style="width: 100%">
+            <label for="out">BBCode:</label>
+            <input type="text" name="out" id="out" value="[img]http://lemmmy.pw/osusig/sig.php?colour=pink&uname=Lemmmy[/img]" style="width: 100%; text-align: center" readonly>
             <br><br>
             <a href="#" id="regen" class="button">Generate</a>
         </article>
         <header>Advanced options</header>
-        <article style="text-align: center;" class="twocol">            
+        <article style="text-align: center;" class="twocol">
             <div class="twocol-col">
                 <span>
                     <input type="checkbox" name="adv-av-margin"> Remove extra margin from avatar

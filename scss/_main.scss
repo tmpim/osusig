@@ -4,16 +4,16 @@ html {
                 url("../img/tris.png") repeat-x;
 }
 
-body { 
-    color: #555555;   
+body {
+    color: #555555;
     max-width: 800px;
     width: 80vw;
-    margin: 0 auto;     
+    margin: 0 auto;
     font-family: 'Exo 2', sans-serif;
 }
 
 .page-header {
-    margin: 1.25em;    
+    margin: 1.25em;
 }
 
 .title {
@@ -24,7 +24,7 @@ body {
 }
 
 .shameless-self-promotion {
-    font-size: 0.9em;    
+    font-size: 0.9em;
     text-align: center;
     display: block;
 }
@@ -57,26 +57,26 @@ ul.colours {
     display: block;
     margin: 0 auto;
     text-align: center;
-    
+
     li {
         display: inline-block;
         padding: 12px;
         border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);   
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
         color: white;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);        
-        margin: 4px;        
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        margin: 4px;
         transition: 225ms ease;
         border: 2px solid transparent;
         cursor: pointer;
-        
+
         &.selected {
             border: 2px solid #FFF;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45),
                 0 0 6px rgba(0, 0, 0, 0.15),
-                0 1px 3px rgba(0, 0, 0, 0.25) inset;      
+                0 1px 3px rgba(0, 0, 0, 0.25) inset;
         }
-        
+
         &:hover {
             border: 2px solid #FFF;
             box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
@@ -89,43 +89,43 @@ ul.modes {
     display: block;
     margin: 0 auto;
     text-align: center;
-    
+
     li {
         display: inline-block;
         padding: 12px;
         border-radius: 2px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);   
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
         color: white;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);        
-        margin: 4px;        
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        margin: 4px;
         transition: 225ms ease;
         border: 2px solid transparent;
         cursor: pointer;
         background-color: #555555;
         width: 86px;
         text-align: center;
-        
+
         &.selected {
             background-color: #b17;
             border: 2px solid #f6a;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),
                 0 0 6px rgba(0, 0, 0, 0.15),
-                0 1px 3px rgba(0, 0, 0, 0.25) inset;      
+                0 1px 3px rgba(0, 0, 0, 0.25) inset;
         }
-        
+
         &:hover {
             border: 2px solid #fff;
             box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
         }
-        
+
         img {
             width: 100%;
             display: block;
         }
-        
+
         span {
             display: block;
-            text-align: center;   
+            text-align: center;
             margin: 12px 0 0 0;
         }
     }
@@ -139,7 +139,7 @@ label {
 }
 
 input[type=text] {
-    outline: none !important; 
+    outline: none !important;
     border: 1px solid transparent;
     border-radius: 2px;
     padding: 8px 12px;
@@ -148,10 +148,10 @@ input[type=text] {
     display: inline-block;
     margin: 0 auto;
     transition: 225ms all ease;
-    
+
     &:active, &:focus {
-        border: 1px solid #B17; 
-        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);       
+        border: 1px solid #B17;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     }
 }
 
@@ -165,7 +165,7 @@ img.preview {
     border-radius: 2px;
 }
 
-a.button {       
+a.button {
     background: url('../img/triangles2.png') no-repeat, #b17;
     padding: 8px 24px;
     border-radius: 2px;
@@ -176,40 +176,40 @@ a.button {
     display: inline-block;
     margin: 0 auto;
     transition: 225ms all ease;
-    
+
     &:hover {
         background-color: #e39;
     }
 }
- 
+
 .ppmodes {
     list-style: none;
     display: block;
     margin: 0 auto;
     text-align: center;
-    
+
     li {
         display: inline-block;
         padding: 12px;
         border-radius: 2px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);   
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
         color: white;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);        
-        margin: 4px;        
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        margin: 4px;
         transition: 225ms ease;
         border: 2px solid transparent;
         cursor: pointer;
         background-color: #555555;
         text-align: center;
-        
+
         &.selected {
             background-color: #b17;
             border: 2px solid #f6a;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),
                 0 0 6px rgba(0, 0, 0, 0.15),
-                0 1px 3px rgba(0, 0, 0, 0.25) inset;      
+                0 1px 3px rgba(0, 0, 0, 0.25) inset;
         }
-        
+
         &:hover {
             border: 2px solid #fff;
             box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
@@ -221,11 +221,11 @@ a.button {
     width: 100%;
     display: flex;
     flex-direction: row;
-    
+
     .twocol-col {
         width: 100%;
         box-sizing: border-box;
-        text-align: left; 
+        text-align: left;
     }
 
     span {
