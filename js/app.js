@@ -15,6 +15,8 @@ $(function() {
             url += "&uname=" + encodeURIComponent(($("input[name=uname]").val() || "Lemmmy"));
             url += "&mode=" + mode;
             url += (ppmode >= 0 ? "&pp=" + ppmode : "");
+
+            url += ($("input[name=country-rank]").prop('checked') ? "&countryrank" : "");
             
             url += ($("input[name=adv-av-margin]").prop('checked') ? "&removeavmargin" : "");
             url += ($("input[name=adv-flag-shadow]").prop('checked') ? "&flagshadow" : "");
