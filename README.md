@@ -11,6 +11,7 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 * `removeavmargin` - If specified (no value required), there will not be a 3px margin between the card's stroke and the profile picture.
 * `flagshadow` - Adds a shadow to the flag
 * `flagstroke` - Adds a stroke to the flag
+* `countryrank` - Shows your country rank (experimental)
 
 ## Examples
 

@@ -73,24 +73,31 @@ header('Cache-Control: post-check=0, pre-check=0', false);
 header('Pragma: no-cache');
 header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
 
+$cr = isset($_GET['countryrank']);
+
 // rank
 $draw->setFont($fontRegular);
-$draw->setFontSize(14);
+$draw->setFontSize(isset($_GET['countryrank']) ? 12 : 14);
 $draw->setFillColor($textWhite);
 $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
 
-$rankTextWidth = $img->queryFontMetrics($draw, '#' . number_format($userInfo->pp_rank))['textWidth'];
-$img->annotateImage($draw, 287, 32, 0, '#' . number_format($userInfo->pp_rank));
+$rankText = '#' . number_format($userInfo->pp_rank) . ($cr ? " (" . '#' . number_format($userInfo->pp_country_rank) . ')' : "");
+$rankTextWidth = $img->queryFontMetrics($draw, $rankText)['textWidth'];
+$img->annotateImage($draw, $cr ? 325 : 287, $cr ? 34 : 32, 0, $rankText);
 
 // mode
 $draw->setFont($fontIcons);
-$draw->setFontSize(14);
+$draw->setFontSize($cr ? 12 : 14);
 $draw->setTextAlignment(\Imagick::ALIGN_LEFT);
-$img->annotateImage($draw, 290, 31, 0, json_decode('"\\ue00' . $mode . '"'));
+$img->annotateImage($draw, $cr ? 315 : 290, $cr ? 18 : 31, 0, json_decode('"\\ue00' . $mode . '"'));
 
 // flag
 $flag = new Imagick($flagsDirectory . $userInfo->country . '.png');
-$flag->resizeImage(18, 12, \Imagick::FILTER_CATROM, 1);
+$flagWidth = $cr ? 13 : 18;
+$flagHeight = $cr ? 9 : 12;
+$flagX = $cr ? 297 : 307;
+$flagY = $cr ? 10 : 21;
+$flag->resizeImage($flagWidth, $flagHeight, \Imagick::FILTER_CATROM, 1);
 
 if (isset($_GET['flagshadow'])) {
     $shadow = $flag->clone();
@@ -98,19 +105,19 @@ if (isset($_GET['flagshadow'])) {
 
     $shadow->shadowImage(50, 3, 0, 0);
 
-    $img->compositeImage($shadow, \Imagick::COMPOSITE_DEFAULT, 301, 15);
+    $img->compositeImage($shadow, \Imagick::COMPOSITE_DEFAULT, $flagX - 6, $flagY - 6);
 }
 
 if (isset($_GET['flagstroke'])) {
     $flagStroke = new \ImagickDraw();
 
-    $flagStroke->setFillColor("#FFFFFF");
-    $flagStroke->roundRectangle(306, 20, 306 + 19, 20 + 13, 1, 1);
+    $flagStroke->setFillColor("#FFFFFFEE");
+    $flagStroke->roundRectangle($flagX - 1, $flagY - 1, ($flagX - 1) + ($flagWidth + 1), ($flagY - 1) + ($flagHeight + 1), 1, 1);
 
     $img->drawImage($flagStroke);
 }
 
-$img->compositeImage($flag, \Imagick::COMPOSITE_DEFAULT, 307, 21);
+$img->compositeImage($flag, \Imagick::COMPOSITE_DEFAULT, $flagX, $flagY);
 
 // name
 $nameFontSize = 24;
@@ -139,7 +146,7 @@ if (isset($_GET['pp']) && $pp == 2) {
     $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
 
     $ppText = number_format(floor($userInfo->pp_raw)) . 'pp';
-    $img->annotateImage($draw, 326, 17, 0, $ppText);
+    $img->annotateImage($draw, $cr ? 293 : 326, 18, 0, $ppText);
 }
 
 // accuracy & play count
