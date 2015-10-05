@@ -146,7 +146,7 @@ if (isset($_GET['pp']) && $pp == 2) {
     $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
     
     $ppText = number_format(floor($userInfo->pp_raw)) . 'pp';
-    $img->annotateImage($draw, $cr ? 292 : 326, 18, 0, $ppText);
+    $img->annotateImage($draw, $cr ? 293 : 326, 18, 0, $ppText);
 }
 
 // accuracy & play count
