@@ -46,7 +46,7 @@ switch ($mode) {
         break;
 }
 
-$userInfo = $mc->get("stats_" . strtolower($uname));
+$userInfo = $mc->get("stats_" . mode . "_" . strtolower($uname));
 
 if (!$userInfo) {
     $userInfo = json_decode(file_get_contents($apiURL . 'get_user' . '?' .
@@ -54,7 +54,7 @@ if (!$userInfo) {
                               '&u'       . '=' . $uname .
                               '&m'       . '=' . $mode))[0];
 
-    $mc->set("stats_" . strtolower($uname), $userInfo, 180);
+    $mc->set("stats_" . mode . "_" . strtolower($uname), $userInfo, 180);
 }
 
 function getFontSize ($size) {
@@ -86,10 +86,15 @@ $rankTextWidth = $img->queryFontMetrics($draw, $rankText)['textWidth'];
 $img->annotateImage($draw, $cr ? 325 : 287, $cr ? 34 : 32, 0, $rankText);
 
 // mode
+$iconmode = $mode;
+if ($iconmode == 1 || $iconmode == 3) {
+    $iconmode = 4 - $iconmode;
+}
+
 $draw->setFont($fontIcons);
 $draw->setFontSize($cr ? 12 : 14);
 $draw->setTextAlignment(\Imagick::ALIGN_LEFT);
-$img->annotateImage($draw, $cr ? 315 : 290, $cr ? 18 : 31, 0, json_decode('"\\ue00' . $mode . '"'));
+$img->annotateImage($draw, $cr ? 315 : 290, $cr ? 18 : 31, 0, json_decode('"\\ue00' . $iconmode . '"'));
 
 // flag
 $flag = new Imagick($flagsDirectory . $userInfo->country . '.png');
