@@ -46,7 +46,7 @@ switch ($mode) {
         break;
 }
 
-$userInfo = $mc->get("stats_" . mode . "_" . strtolower($uname));
+$userInfo = $mc->get("stats_" . $mode . "_" . strtolower($uname));
 
 if (!$userInfo) {
     $userInfo = json_decode(file_get_contents($apiURL . 'get_user' . '?' .
@@ -54,7 +54,7 @@ if (!$userInfo) {
                               '&u'       . '=' . $uname .
                               '&m'       . '=' . $mode))[0];
 
-    $mc->set("stats_" . mode . "_" . strtolower($uname), $userInfo, 180);
+    $mc->set("stats_" . $mode . "_" . strtolower($uname), $userInfo, 180);
 }
 
 function getFontSize ($size) {
@@ -68,10 +68,8 @@ $textWhite = '#FFFFFF';
 $textGrey = '#555555';
 
 header('Content-Type: image/'.$img->getImageFormat());
-header('Cache-Control: no-store, no-cache, must-revalidate');
-header('Cache-Control: post-check=0, pre-check=0', false);
-header('Pragma: no-cache');
-header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
+header("Expires: ".gmdate("D, d M Y H:i:s", time()+1800)." GMT");
+header("Cache-Control: max-age=1800");
 
 $cr = isset($_GET['countryrank']);
 
