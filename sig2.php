@@ -13,4 +13,4 @@ include_once("class/OsuSignature.php");
 $api = new OsuAPI(constant("AKEY"));
 
 $sig = new OsuSignature("Lemmmy");
-$sig->output();
+$sig->generate();
