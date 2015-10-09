@@ -1,9 +1,7 @@
 <?php
-
 /**
- * Created by Lemmmy.
+ * @author Lemmy
  */
-
 class PredefinedColours
 {
     /**

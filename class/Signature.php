@@ -1,7 +1,7 @@
 <?php
-// Thanks to Cygnix
-// Created by Lemmmy
-
+/**
+ * @author Lemmy
+ */
 class Signature
 {
     protected $canvas;
