@@ -21,9 +21,10 @@ class OsuAPI
     /**
      * Gets user information for a specific game mode
      *
-     * @param string $username [The player's username]
-     * @param [string] $mode [The game mode]
-     * $return array | false
+     * @param string $username The player's username
+     * @param string [$mode] The game mode
+     *
+     * @return array|false An array containing the user's info, or false if the user was not found
      */
     public function getUserForMode($username, $mode = "osu") {
         if (in_array($mode, $this->modes)) {

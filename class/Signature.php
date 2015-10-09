@@ -9,8 +9,8 @@ class Signature
     /**
      * Creates a new instance of a basic Signature class
      *
-     * @param int $width [The signature's canvas width]
-     * @param int $height [The signature's canvas height]
+     * @param int $width The signature's canvas width
+     * @param int $height The signature's canvas height
      */
     public function __construct($width, $height) {
         $this->canvas = new\Imagick();
@@ -20,7 +20,7 @@ class Signature
     /**
      * Draws the background colour for the signature
      *
-     * @param string $hexColour [Hexadecimal colour value]
+     * @param string $hexColour Hexadecimal colour value
      */
     protected function drawBackground($hexColour) {
         $background = new ImagickDraw();

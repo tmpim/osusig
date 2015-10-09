@@ -26,9 +26,9 @@ class PredefinedColours
     /**
      * Gets whether or not a colour is named and predefined
      *
-     * @param $colourName [The colour to check]
+     * @param string $colourName The colour to check
      *
-     * @returns string Hexadecimal colour code if predefined, $colourName if not.
+     * @return string Hexadecimal colour code if predefined, $colourName if not.
      */
     public function getPredefinedColour($colourName) {
         $colourName = strtolower($colourName);
