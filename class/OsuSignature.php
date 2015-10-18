@@ -32,7 +32,7 @@ class OsuSignature extends Signature
     /**
      * How large the triangle strip should be
      */
-    const TRIANGLE_STRIP_HEIGHT = 32;
+    const TRIANGLE_STRIP_HEIGHT = 28;
 
     /**
      * The triangles image to use for the signature card's header
@@ -143,19 +143,18 @@ class OsuSignature extends Signature
      */
     public function drawTriangleStrip($hexColour) {
         $baseWidth = $this->calculateBaseWidth();
-        $baseHeight = $this->calculateBaseHeight();
 
         // The base for the triangles strip, to be drawn over the plain
         $backArea = new ImagickDraw();
-        $backArea->setFillColor("white");
+        $backArea->setFillColor(new ImagickPixel($hexColour));
         $backArea->rectangle(
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
-            self::SIG_MARGIN + self::SIG_STROKE_WIDTH + self::TRIANGLE_STRIP_HEIGHT,
+            self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
             $baseWidth - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
-            $baseHeight - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
-            self::SIG_ROUNDING,
-            self::SIG_ROUNDING
+            (self::TRIANGLE_STRIP_HEIGHT - self::SIG_STROKE_WIDTH) + (self::SIG_ROUNDING * 4)
         );
+
+        $this->canvas->drawImage($backArea);
 
         $triangles = new Imagick();
         $triangles->newImage(
