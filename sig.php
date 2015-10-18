@@ -24,7 +24,7 @@ if (!isset($_GET['colour']) || !isset($_GET['uname'])) {
 
 $colour = strtolower($_GET['colour']);
 $pp = $_GET['pp'];
-$uname = urldecode($_GET['uname']);
+$uname = str_replace(" ", "%20", urldecode($_GET['uname']));
 $mode = isset($_GET['mode']) ? $_GET['mode'] : 0;
 $modeName = 'osu';
 
@@ -95,32 +95,35 @@ $draw->setTextAlignment(\Imagick::ALIGN_LEFT);
 $img->annotateImage($draw, $cr ? 315 : 290, $cr ? 18 : 31, 0, json_decode('"\\ue00' . $iconmode . '"'));
 
 // flag
-$flag = new Imagick($flagsDirectory . $userInfo->country . '.png');
-$flagWidth = $cr ? 13 : 18;
-$flagHeight = $cr ? 9 : 12;
-$flagX = $cr ? 297 : 307;
-$flagY = $cr ? 10 : 21;
-$flag->resizeImage($flagWidth, $flagHeight, \Imagick::FILTER_CATROM, 1);
+try {
+    $flag = new Imagick($flagsDirectory . $userInfo->country . '.png');
+    $flagWidth = $cr ? 13 : 18;
+    $flagHeight = $cr ? 9 : 12;
+    $flagX = $cr ? 297 : 307;
+    $flagY = $cr ? 10 : 21;
+    $flag->resizeImage($flagWidth, $flagHeight, \Imagick::FILTER_CATROM, 1);
+    if (isset($_GET['flagshadow'])) {
+        $shadow = $flag->clone();
+        $shadow->setImageBackgroundColor(new ImagickPixel('black'));
 
-if (isset($_GET['flagshadow'])) {
-    $shadow = $flag->clone();
-    $shadow->setImageBackgroundColor(new ImagickPixel('black'));
+        $shadow->shadowImage(50, 3, 0, 0);
 
-    $shadow->shadowImage(50, 3, 0, 0);
+        $img->compositeImage($shadow, \Imagick::COMPOSITE_DEFAULT, $flagX - 6, $flagY - 6);
+    }
 
-    $img->compositeImage($shadow, \Imagick::COMPOSITE_DEFAULT, $flagX - 6, $flagY - 6);
+    if (isset($_GET['flagstroke'])) {
+        $flagStroke = new \ImagickDraw();
+
+        $flagStroke->setFillColor("#FFFFFFEE");
+        $flagStroke->roundRectangle($flagX - 1, $flagY - 1, ($flagX - 1) + ($flagWidth + 1), ($flagY - 1) + ($flagHeight + 1), 1, 1);
+
+        $img->drawImage($flagStroke);
+    }
+
+    $img->compositeImage($flag, \Imagick::COMPOSITE_DEFAULT, $flagX, $flagY);
+} catch (ImagickException $e) {
+
 }
-
-if (isset($_GET['flagstroke'])) {
-    $flagStroke = new \ImagickDraw();
-
-    $flagStroke->setFillColor("#FFFFFFEE");
-    $flagStroke->roundRectangle($flagX - 1, $flagY - 1, ($flagX - 1) + ($flagWidth + 1), ($flagY - 1) + ($flagHeight + 1), 1, 1);
-
-    $img->drawImage($flagStroke);
-}
-
-$img->compositeImage($flag, \Imagick::COMPOSITE_DEFAULT, $flagX, $flagY);
 
 // name
 $nameFontSize = 24;

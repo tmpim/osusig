@@ -107,9 +107,6 @@ class OsuSignature extends Signature
         // The background layer - this draws the fill
         $this->drawBackgroundFill($base, $hexColour);
 
-        // The triangles strip
-        $this->drawTriangleStrip($base, $hexColour);
-
         // Composite the base onto the canvas at margin, margin
         $this->canvas->compositeImage($base, Imagick::COMPOSITE_DEFAULT, 0, 0);
     }
@@ -137,10 +134,24 @@ class OsuSignature extends Signature
     /**
      * Draws the triangle strip for the signature
      *
-     * @param Imagick $base The base to draw on
      * @param string $hexColour Hexadecimal colour value for the whole card
      */
-    public function drawTriangleStrip($base, $hexColour) {
+    public function drawTriangleStrip($hexColour) {
+        $baseWidth = $this->calculateBaseWidth();
+        $baseHeight = $this->calculateBaseHeight();
+
+        // The base for the triangles strip, to be drawn over the plain
+        $backArea = new ImagickDraw();
+        $backArea->setFillColor("white");
+        $backArea->rectangle(
+            self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
+            self::SIG_MARGIN + self::SIG_STROKE_WIDTH + self::TRIANGLE_STRIP_HEIGHT,
+            $baseWidth - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
+            $baseHeight - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
+            self::SIG_ROUNDING,
+            self::SIG_ROUNDING
+        );
+
         $triangles = new Imagick();
         $triangles->newImage(
             $this->baseWidth - (self::SIG_STROKE_WIDTH * 2),
@@ -157,14 +168,14 @@ class OsuSignature extends Signature
             'gradient:' . 'none' . '-' . $hexColour);
 
         // Composite the triangles onto the base
-        $base->compositeImage(
+        $this->canvas->compositeImage(
             $triangles,
             Imagick::COMPOSITE_DEFAULT,
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH);
 
         // Composite the triangles gradient onto the base
-        $base->compositeImage($trianglesGradient,
+        $this->canvas->compositeImage($trianglesGradient,
             Imagick::COMPOSITE_DEFAULT,
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH);
@@ -174,20 +185,18 @@ class OsuSignature extends Signature
      * Draws the white area of the card
      */
     public function drawPlainArea() {
-        /*
-            The inner width and height of the signature card.
-            This excludes the margins.
-        */
         $baseWidth = $this->calculateBaseWidth();
         $baseHeight = $this->calculateBaseHeight();
 
         $plainArea = new ImagickDraw();
         $plainArea->setFillColor("white");
-        $plainArea->rectangle(
-            self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
+        $plainArea->roundRectangle(
+            self::SIG_MARGIN + self::SIG_STROKE_WIDTH + 1,
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH + self::TRIANGLE_STRIP_HEIGHT,
             $baseWidth - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
-            $baseHeight - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1
+            $baseHeight - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
+            self::SIG_ROUNDING,
+            self::SIG_ROUNDING
         );
 
         $this->canvas->drawImage($plainArea);
@@ -224,6 +233,7 @@ class OsuSignature extends Signature
 
         $this->drawBackground($hexColour);
         $this->drawPlainArea();
+        $this->drawTriangleStrip($hexColour);
         $this->drawFinalStroke($hexColour);
 
         // Sets the headers and echoes the image
