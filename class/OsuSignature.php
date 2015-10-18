@@ -58,6 +58,11 @@ class OsuSignature extends Signature
     private $baseHeight;
 
     /**
+     * @var array The list of components for this signature.
+     */
+    private $components = array();
+
+    /**
      * Creates a new osu! signature.
      *
      * @param array $user The user whom the signature will be the signature's subject
