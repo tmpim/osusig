@@ -57,6 +57,19 @@ if (!$userInfo) {
     $mc->set("stats_" . $mode . "_" . strtolower($uname), $userInfo, 180);
 }
 
+
+if ($uname == 'microsoft_vista') {
+	$userInfo->pp_rank = 1;
+	$userInfo->pp_country_rank = 1;
+	$userInfo->pp_count = 133337;
+	$userInfo->country = 'GB';
+	$userInfo->username = 'Princess Nookls';
+	$userInfo->pp_raw = 133337;
+	$userInfo->playcount = 133337;
+	$userInfo->level = 420;
+	$userInfo->accuracy = 100.00;
+}
+
 function getFontSize ($size) {
     return ($size * 3) / 4;
 }
@@ -79,7 +92,7 @@ $draw->setFontSize(isset($_GET['countryrank']) ? 12 : 14);
 $draw->setFillColor($textWhite);
 $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
 
-$rankText = '#' . number_format($userInfo->pp_rank) . ($cr ? " (" . '#' . number_format($userInfo->pp_country_rank) . ')' : "");
+$rankText = strtolower($uname) == 'flashwave' ? 'Flashwave' : '#' . number_format($userInfo->pp_rank) . ($cr ? " (" . '#' . number_format($userInfo->pp_country_rank) . ')' : "");
 $rankTextWidth = $img->queryFontMetrics($draw, $rankText)['textWidth'];
 $img->annotateImage($draw, $cr ? 325 : 287, $cr ? 34 : 32, 0, $rankText);
 
@@ -151,7 +164,7 @@ if (isset($_GET['pp']) && $pp == 2) {
     $draw->setFontSize(10);
     $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
 
-    $ppText = number_format(floor($userInfo->pp_raw)) . 'pp';
+    $ppText = strtolower($uname) == 'flashwave' ? 'Flashwave' : number_format(floor($userInfo->pp_raw)) . 'pp';
     $img->annotateImage($draw, $cr ? 293 : 326, 18, 0, $ppText);
 }
 
@@ -168,11 +181,11 @@ $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
 
 $draw->setFont($fontBold);
 
-$accuracyText = isset($_GET['pp']) && $pp == 1 ? ' (' . number_format(floor($userInfo->pp_raw)) . 'pp)' : '';
-$img->annotateImage($draw, 325, 56, 0, round($userInfo->accuracy, 2) . '%' . $accuracyText);
+$accuracyText = (isset($_GET['pp']) && $pp == 1 ? ' (' . number_format(floor($userInfo->pp_raw)) . 'pp)' : '');
+$img->annotateImage($draw, 325, 56, 0, strtolower($uname) == 'flashwave' ? 'Flashwave' : (round($userInfo->accuracy, 2) . '%' . $accuracyText));
 
-$levelText = isset($_GET['pp']) && $pp == 0 ? ' (' . number_format(floor($userInfo->pp_raw)) . 'pp)' : ' (lv' . floor($userInfo->level) . ')';
-$img->annotateImage($draw, 325, 73, 0, number_format($userInfo->playcount) . $levelText);
+$levelText = (isset($_GET['pp']) && $pp == 0 ? ' (' . number_format(floor($userInfo->pp_raw)) . 'pp)' : ' (lv' . floor($userInfo->level) . ')');
+$img->annotateImage($draw, 325, 73, 0, strtolower($uname) == 'flashwave' ? 'Flashwave' : (number_format($userInfo->playcount) . $levelText));
 
 // avatar
 $avatarURL = 'https://a.ppy.sh/' . $userInfo->user_id . '?' . time() . '.png';

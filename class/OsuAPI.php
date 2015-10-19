@@ -26,6 +26,7 @@ class OsuAPI
     public function __construct($apiKey) {
         $this->apiKey = $apiKey;
     }
+
     /**
      * Gets user information for a specific game mode
      *

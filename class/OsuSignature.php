@@ -69,8 +69,14 @@ class OsuSignature extends Signature
      * @param int [$width] The signature's canvas width
      * @param int [$height] The signature's canvas height
      */
-    public function __construct($user, $width = 338, $height = 94) {
+    public function __construct($user) {
         $this->user = $user;
+
+        // Temporary
+        array_push($this->components, new ComponentAvatar(9, 9));
+
+        $width = $this->calculateBaseWidth() + (SELF::SIG_MARGIN * 2);
+        $height = $this->calculateBaseHeight() + (SELF::SIG_MARGIN * 2);
 
         parent::__construct($width, $height);
     }
@@ -82,8 +88,17 @@ class OsuSignature extends Signature
      * @return int The width we calculated.
      */
     private function calculateBaseWidth() {
-        // do something with components
-        return 330;
+        $x1 = 0;
+        $x2 = 0;
+
+        foreach ($this->components as $component) {
+            if ($component->x < $x1) $x1 = $component->x;
+            if ($component->x + $component->getWidth() > $x2) $x2 = $component->x + $component->getWidth();
+        }
+
+        return $x2 - $x1;
+
+        //return 330;
     }
 
     /**
@@ -93,8 +108,17 @@ class OsuSignature extends Signature
      * @return int The height we calculated.
      */
     private function calculateBaseHeight() {
-        // do something with components
-        return 86;
+        $y1 = 0;
+        $y2 = 0;
+
+        foreach ($this->components as $component) {
+            if ($component->y < $y1) $y1 = $component->y;
+            if ($component->y + $component->getHeight() > $y2) $y2 = $component->y + $component->getHeight();
+        }
+
+        return $y2 - $y1;
+
+        //return 86;
     }
 
     /**
@@ -142,15 +166,13 @@ class OsuSignature extends Signature
      * @param string $hexColour Hexadecimal colour value for the whole card
      */
     public function drawTriangleStrip($hexColour) {
-        $baseWidth = $this->calculateBaseWidth();
-
         // The base for the triangles strip, to be drawn over the plain
         $backArea = new ImagickDraw();
         $backArea->setFillColor(new ImagickPixel($hexColour));
         $backArea->rectangle(
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
-            self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
-            $baseWidth - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
+            self::SIG_MARGIN + self::SIG_STROKE_WIDTH + 1,
+            $this->baseWidth - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
             (self::TRIANGLE_STRIP_HEIGHT - self::SIG_STROKE_WIDTH) + (self::SIG_ROUNDING * 4)
         );
 
@@ -189,16 +211,13 @@ class OsuSignature extends Signature
      * Draws the white area of the card
      */
     public function drawPlainArea() {
-        $baseWidth = $this->calculateBaseWidth();
-        $baseHeight = $this->calculateBaseHeight();
-
         $plainArea = new ImagickDraw();
         $plainArea->setFillColor("white");
         $plainArea->roundRectangle(
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH + 1,
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH + self::TRIANGLE_STRIP_HEIGHT,
-            $baseWidth - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
-            $baseHeight - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
+            $this->baseWidth - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
+            $this->baseHeight - self::SIG_STROKE_WIDTH + (self::SIG_STROKE_WIDTH / 2) + 1,
             self::SIG_ROUNDING,
             self::SIG_ROUNDING
         );
