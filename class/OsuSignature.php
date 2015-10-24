@@ -58,67 +58,26 @@ class OsuSignature extends Signature
     private $baseHeight;
 
     /**
-     * @var array The list of components for this signature.
+     * @var Template The template this signature will use for its components.
      */
-    private $components = array();
+    private $template;
 
     /**
      * Creates a new osu! signature.
      *
      * @param array $user The user whom the signature will be the signature's subject
-     * @param int [$width] The signature's canvas width
-     * @param int [$height] The signature's canvas height
+     * @param Template $template The template this signature will be based on.
      */
-    public function __construct($user) {
+    public function __construct($user, $template) {
         $this->user = $user;
+        $this->template = $template;
 
-        // Temporary
-        array_push($this->components, new ComponentAvatar(9, 9));
+        $this->template->setSignature($this);
 
-        $width = $this->calculateBaseWidth() + (SELF::SIG_MARGIN * 2);
-        $height = $this->calculateBaseHeight() + (SELF::SIG_MARGIN * 2);
+        $width = $this->template->calculateBaseWidth() + (SELF::SIG_MARGIN * 2);
+        $height = $this->template->calculateBaseHeight() + (SELF::SIG_MARGIN * 2);
 
         parent::__construct($width, $height);
-    }
-
-    /**
-     * Calculates the required width of the signature based on the components
-     * and their layout.
-     *
-     * @return int The width we calculated.
-     */
-    private function calculateBaseWidth() {
-        $x1 = 0;
-        $x2 = 0;
-
-        foreach ($this->components as $component) {
-            if ($component->x < $x1) $x1 = $component->x;
-            if ($component->x + $component->getWidth() > $x2) $x2 = $component->x + $component->getWidth();
-        }
-
-        return $x2 - $x1;
-
-        //return 330;
-    }
-
-    /**
-     * Calculates the required height of the signature based on the components
-     * and their layout.
-     *
-     * @return int The height we calculated.
-     */
-    private function calculateBaseHeight() {
-        $y1 = 0;
-        $y2 = 0;
-
-        foreach ($this->components as $component) {
-            if ($component->y < $y1) $y1 = $component->y;
-            if ($component->y + $component->getHeight() > $y2) $y2 = $component->y + $component->getHeight();
-        }
-
-        return $y2 - $y1;
-
-        //return 86;
     }
 
     /**
@@ -251,12 +210,13 @@ class OsuSignature extends Signature
             The inner width and height of the signature card.
             This excludes the margins.
         */
-        $this->baseWidth = $this->calculateBaseWidth();
-        $this->baseHeight = $this->calculateBaseHeight();
+        $this->baseWidth = $this->template->calculateBaseWidth();
+        $this->baseHeight = $this->template->calculateBaseHeight();
 
         $this->drawBackground($hexColour);
         $this->drawPlainArea();
-        $this->drawTriangleStrip($hexColour);
+        if ($this->template->hasTriangleStrip())
+            $this->drawTriangleStrip($hexColour);
         $this->drawFinalStroke($hexColour);
 
         // Sets the headers and echoes the image

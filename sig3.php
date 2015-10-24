@@ -4,16 +4,16 @@
 
 require_once("p/.priv.php");
 
-include_once("class/PredefinedColours.php");
+function __autoload($class_name) {
+    $directory = 'class/';
 
-include_once("class/OsuAPI.php");
-include_once("class/Signature.php");
-include_once("class/OsuSignature.php");
-
-include_once('class/Component.php');
-include_once('class/ComponentAvatar.php');
+    if (file_exists($directory . $class_name . '.php')) {
+        require_once ($directory . $class_name . '.php');
+        return;
+    }
+}
 
 $api = new OsuAPI(constant("AKEY"));
 
-$sig = new OsuSignature("Lemmmy");
+$sig = new OsuSignature("Lemmmy", new TemplateNormal());
 $sig->generate();
