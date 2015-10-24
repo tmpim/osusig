@@ -137,20 +137,41 @@ class OsuSignature extends Signature
 
         $this->canvas->drawImage($backArea);
 
+        $originalTriangles = new Imagick(self::IMG_TRIANGLES);
+        $originalTriangles->cropImage(
+            $this->baseWidth, $this->baseHeight,
+            $this->baseWidth / 2, $this->baseHeight / 2);
+
         $triangles = new Imagick();
         $triangles->newImage(
             $this->baseWidth - (self::SIG_STROKE_WIDTH * 2),
-            self::TRIANGLE_STRIP_HEIGHT  - self::SIG_STROKE_WIDTH,
+            self::TRIANGLE_STRIP_HEIGHT + self::SIG_STROKE_WIDTH,
             new ImagickPixel($hexColour));
-        $triangles = $triangles->textureImage(new Imagick(self::IMG_TRIANGLES));
-        $triangles->setImageOpacity(0.125);
+        $triangles = $triangles->textureImage($originalTriangles);
 
         // The gradient to draw over the triangles
-        $trianglesGradient = new Imagick();
-        $trianglesGradient->newPseudoImage(
+        $trianglesGradient1 = new Imagick();
+        $trianglesGradient1->newPseudoImage(
             $this->baseWidth - (self::SIG_STROKE_WIDTH * 2),
-            self::TRIANGLE_STRIP_HEIGHT - self::SIG_STROKE_WIDTH,
+            self::TRIANGLE_STRIP_HEIGHT + self::SIG_STROKE_WIDTH,
             'gradient:' . 'none' . '-' . $hexColour);
+        $trianglesGradient1->setImageOpacity(0.6);
+
+        // The second gradient to draw over the triangles
+        $trianglesGradient2 = new Imagick();
+        $trianglesGradient2->newPseudoImage(
+            $this->baseWidth - (self::SIG_STROKE_WIDTH * 2),
+            self::TRIANGLE_STRIP_HEIGHT + self::SIG_STROKE_WIDTH,
+            'gradient:' . '#4a4a4a' . '-' . '#313131');
+
+        // Composite the black and white graidnet onto the triangles
+        $triangles->compositeImage(
+            $trianglesGradient2,
+            Imagick::COMPOSITE_OVERLAY,
+            0,
+            0);
+
+        $triangles->setImageOpacity(0.1);
 
         // Composite the triangles onto the base
         $this->canvas->compositeImage(
@@ -160,7 +181,7 @@ class OsuSignature extends Signature
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH);
 
         // Composite the triangles gradient onto the base
-        $this->canvas->compositeImage($trianglesGradient,
+        $this->canvas->compositeImage($trianglesGradient1,
             Imagick::COMPOSITE_DEFAULT,
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
             self::SIG_MARGIN + self::SIG_STROKE_WIDTH);
