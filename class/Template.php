@@ -5,17 +5,23 @@
 class Template
 {
     /**
-     * @var array The list of components for this signature.
+     * The list of components for this signature.
+     *
+     * @var array
      */
     private $components = array();
 
     /**
-     * @var Signature The signature that this is a template of.
+     * The signature that this is a template of.
+     *
+     * @var Signature
      */
     private $signature;
 
     /**
-     * @return array This template's components.
+     * This template's components.
+     *
+     * @return array
      */
     public function getComponents() {
         return $this->components;
@@ -52,7 +58,7 @@ class Template
      * @return int The width we calculated.
      */
     public function calculateBaseWidth() {
-        if (isset($_GET['width']) && is_numeric($_GET['width']) && $_GET['width'] > 0) return $_GET['width']; // Debugging purposes
+        // if (isset($_GET['width']) && is_numeric($_GET['width']) && $_GET['width'] > 0) return $_GET['width']; // Debugging purposes
 
         $x1 = 0;
         $x2 = 0;
@@ -96,5 +102,14 @@ class Template
      */
     public function addComponent(Component $component) {
         array_push($this->components, $component);
+    }
+
+    /**
+     * Draws the template's components
+     */
+    public function drawComponents() {
+        foreach ($this->getComponents() as $component) {
+            $component->draw($this->getSignature());
+        }
     }
 }

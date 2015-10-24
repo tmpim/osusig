@@ -5,7 +5,9 @@
 class ErrorImage
 {
     /**
-     * @var The canvas to draw to.
+     * The canvas to draw to.
+     *
+     * @var Imagick
      */
     private $canvas;
 

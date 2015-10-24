@@ -4,7 +4,11 @@
  */
 class OsuAPI
 {
+    /*
+     * The osu! API url
+     */
     const API_URL = "https://osu.ppy.sh/api/";
+
     /**
      * Each mode of osu! that we want to use
      * 
@@ -18,6 +22,14 @@ class OsuAPI
      * @var string
      */
     private $apiKey;
+
+    /**
+     * The memcache object
+     *
+     * @var Memcached
+     */
+    private $mc;
+
     /**
      * Creates a new instance of OsuAPI
      *
@@ -25,6 +37,9 @@ class OsuAPI
      */
     public function __construct($apiKey) {
         $this->apiKey = $apiKey;
+
+        $this->mc = new Memcached();
+        $this->mc->addServer("localhost", 11211);
     }
 
     /**
@@ -37,10 +52,18 @@ class OsuAPI
      */
     public function getUserForMode($username, $mode = "osu") {
         if (in_array($mode, static::$modes)) {
-            $request = $this->request('get_user', ['u' => $username, 'm' => $mode]);
+            $user = $this->mc->get("osusigv3_user_" . $mode . "_" . strtolower($username));
 
-            if (isset($request) && isset($request[0])){
-                return $request[0];
+            if (!$user) {
+                $request = $this->request('get_user', ['u' => $username, 'm' => $mode]);
+
+                if (isset($request) && isset($request[0])) {
+                    $this->mc->set("osusigv3_user_" . $mode . "_" . strtolower($username), $request[0], 180);
+
+                    return $request[0];
+                }
+            } else {
+                return $user;
             }
 
             return false;

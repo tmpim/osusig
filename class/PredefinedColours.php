@@ -7,6 +7,8 @@ class PredefinedColours
     /**
      * The pre-defined colours from the v1 and v2 signature
      * generators, here to preserve backwards compatibility.
+     *
+     * @var array
      */
     private static $predefinedColours = array(
         'red' => '#ee3333',

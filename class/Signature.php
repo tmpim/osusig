@@ -43,4 +43,11 @@ class Signature
 
         echo $this->canvas;
     }
+
+    /**
+     * @return Imagick The Imagick object of this signature.
+     */
+    public function getCanvas() {
+        return $this->canvas;
+    }
 }

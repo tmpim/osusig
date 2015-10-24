@@ -41,24 +41,32 @@ class OsuSignature extends Signature
 
 
     /**
-     * @var string The username of the requested signature's subject
+     * The username of the requested signature's subject
+     *
+     * @var string
      */
     private $user;
 
     /**
-     * @var int The width of the signature excluding the margin and stroke width
+     * The width of the signature excluding the margin and stroke width
      * calculated by the size of all components.
+     *
+     * @var int
      */
     private $baseWidth;
 
     /**
-     * @var int The height of the signature excluding the margin and stroke width
+     * The height of the signature excluding the margin and stroke width
      * calculated by the size of all components.
+     *
+     * @var int
      */
     private $baseHeight;
 
     /**
-     * @var Template The template this signature will use for its components.
+     * The template this signature will use for its components.
+     *
+     * @var Template
      */
     private $template;
 
@@ -268,6 +276,8 @@ class OsuSignature extends Signature
         if ($this->template->hasTriangleStrip())
             $this->drawTriangleStrip($hexColour);
         $this->drawFinalStroke($hexColour);
+
+        $this->template->drawComponents();
 
         // Sets the headers and echoes the image
         $this->output();
