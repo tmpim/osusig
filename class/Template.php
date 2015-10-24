@@ -52,7 +52,7 @@ class Template
      * @return int The width we calculated.
      */
     public function calculateBaseWidth() {
-        //if (isset($_GET['width']) && is_numeric($_GET['width']) && $_GET['width'] > 0) return $_GET['width']; // Debugging purposes
+        if (isset($_GET['width']) && is_numeric($_GET['width']) && $_GET['width'] > 0) return $_GET['width']; // Debugging purposes
 
         $x1 = 0;
         $x2 = 0;
@@ -91,7 +91,7 @@ class Template
 
     /**
      * Adds a component to this template
-     * 
+     *
      * @param Component $component The component to add
      */
     public function addComponent(Component $component) {

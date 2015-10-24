@@ -27,7 +27,7 @@ class OsuSignature extends Signature
     /**
      * How much to round the outer edges of the signature card
      */
-    const SIG_OUTER_ROUNDING = 4;
+    const SIG_OUTER_ROUNDING = 3;
 
     /**
      * How large the triangle strip should be
