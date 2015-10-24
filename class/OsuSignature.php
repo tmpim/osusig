@@ -188,6 +188,34 @@ class OsuSignature extends Signature
     }
 
     /**
+     * Draws the shadow of the card
+     */
+    public function drawShadow() {
+        $shadow = new Imagick();
+        $shadow->newImage(
+            $this->canvas->getImageWidth(),
+            $this->canvas->getImageHeight(),
+            new ImagickPixel('transparent'));
+        $shadow->setImageBackgroundColor(new ImagickPixel('black'));
+
+        $shadowArea = new ImagickDraw();
+        $shadowArea->setFillColor(new ImagickPixel('black'));
+        $shadowArea->roundRectangle(
+            0,
+            0,
+            $this->baseWidth - 2,
+            $this->baseHeight - 3,
+            self::SIG_ROUNDING,
+            self::SIG_ROUNDING
+        );
+
+        $shadow->drawImage($shadowArea);
+        $shadow->shadowImage(50, 2, 0, 0);
+
+        $this->canvas->compositeImage($shadow, Imagick::COMPOSITE_DEFAULT, 0, 1);
+    }
+
+    /**
      * Draws the white area of the card
      */
     public function drawPlainArea() {
@@ -234,6 +262,7 @@ class OsuSignature extends Signature
         $this->baseWidth = $this->template->calculateBaseWidth();
         $this->baseHeight = $this->template->calculateBaseHeight();
 
+        $this->drawShadow();
         $this->drawBackground($hexColour);
         $this->drawPlainArea();
         if ($this->template->hasTriangleStrip())
