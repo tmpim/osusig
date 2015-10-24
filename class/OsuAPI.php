@@ -38,11 +38,15 @@ class OsuAPI
     public function getUserForMode($username, $mode = "osu") {
         if (in_array($mode, static::$modes)) {
             $request = $this->request('get_user', ['u' => $username, 'm' => $mode]);
-            if ($request && isset($result[0])) {
-                return $result[0];
+
+            if (isset($request) && isset($request[0])){
+                return $request[0];
             }
+
             return false;
         }
+
+        return false;
     }
     
     /**
@@ -69,7 +73,6 @@ class OsuAPI
      */
     protected function decode($content)
     {
-        // todo: error handling here
         if (strlen($content) > 0 && $content) {
             return json_decode($content, true);
         }

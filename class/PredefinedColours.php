@@ -8,17 +8,17 @@ class PredefinedColours
      * The pre-defined colours from the v1 and v2 signature
      * generators, here to preserve backwards compatibility.
      */
-    private $predefinedColours = array(
-        'red' => '#e33',
-        'orange' => '#e83',
-        'yellow' => '#fc2',
-        'green' => '#ad0',
-        'blue' => '#6cf',
-        'purple' => '#86e',
-        'bpink' => '#f6a',
-        'darkblue' => '#25e',
-        'pink' => '#b17',
-        'black' => '#000'
+    private static $predefinedColours = array(
+        'red' => '#ee3333',
+        'orange' => '#ee8833',
+        'yellow' => '#ffcc22',
+        'green' => '#aadd00',
+        'blue' => '#66ccff',
+        'purple' => '#8866ee',
+        'bpink' => '#ff66aa',
+        'darkblue' => '#2255ee',
+        'pink' => '#bb1177',
+        'black' => '#000000'
     );
 
     /**
@@ -28,11 +28,11 @@ class PredefinedColours
      *
      * @return string Hexadecimal colour code if predefined, $colourName if not.
      */
-    public function getPredefinedColour($colourName) {
+    public static function getPredefinedColour($colourName) {
         $colourName = strtolower($colourName);
 
-        return in_array($this->predefinedColours, $colourName) ?
-            $this->predefinedColours[$colourName] :
+        return in_array($colourName, array_keys(PredefinedColours::$predefinedColours)) ?
+            PredefinedColours::$predefinedColours[$colourName] :
             $colourName;
     }
 }

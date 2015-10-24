@@ -15,5 +15,12 @@ function __autoload($class_name) {
 
 $api = new OsuAPI(constant("AKEY"));
 
-$sig = new OsuSignature("Lemmmy", new TemplateNormal());
-$sig->generate();
+$user = $api->getUserForMode($_GET['uname'], isset($_GET['mode']) ? $_GET['mode'] : 'osu');
+
+if (!$user) {
+    $errorImage = new ErrorImage();
+    $errorImage->generate("User not found", "The user you tried to generate \na signature for was not found.");
+}
+
+$sig = new OsuSignature($user, new TemplateNormal());
+$sig->generate(PredefinedColours::getPredefinedColour($_GET['colour']));
