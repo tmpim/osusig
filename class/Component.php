@@ -4,50 +4,50 @@
  */
 class Component
 {
-    /**
-     * The X position of this component.
-     *
-     * @var int
-     */
-    public $x;
+	/**
+	 * The X position of this component.
+	 *
+	 * @var int
+	 */
+	public $x;
 
-    /**
-     * The Y position of this component.
-     * @var int
-     */
-    public $y;
+	/**
+	 * The Y position of this component.
+	 * @var int
+	 */
+	public $y;
 
-    /**
-     * Initializes this component.
-     *
-     * @param int $x The X position of this component
-     * @param int $y The Y position of this component
-     */
-    public function __construct($x = 0, $y = 0) {
-        $this->x = $x;
-        $this->y = $y;
-    }
+	/**
+	 * Initializes this component.
+	 *
+	 * @param int $x The X position of this component
+	 * @param int $y The Y position of this component
+	 */
+	public function __construct($x = 0, $y = 0) {
+		$this->x = $x;
+		$this->y = $y;
+	}
 
-    /**
-     * @return int The width of this component. Overridable.
-     */
-    public function getWidth() {
-        return 0;
-    }
+	/**
+	 * @return int The width of this component. Overridable.
+	 */
+	public function getWidth() {
+		return 0;
+	}
 
-    /**
-     * @return int The height of this component. Overridable.
-     */
-    public function getHeight() {
-        return 0;
-    }
+	/**
+	 * @return int The height of this component. Overridable.
+	 */
+	public function getHeight() {
+		return 0;
+	}
 
-    /**
-     * Draws this component to the signature's canvas.
-     *
-     * @param Signature $signature The signature to draw to.
-     */
-    public function draw(Signature $signature) {
+	/**
+	 * Draws this component to the signature's canvas.
+	 *
+	 * @param Signature $signature The signature to draw to.
+	 */
+	public function draw(Signature $signature) {
 
-    }
+	}
 }

@@ -4,58 +4,58 @@
  */
 class ErrorImage
 {
-    /**
-     * The canvas to draw to.
-     *
-     * @var Imagick
-     */
-    private $canvas;
+	/**
+	 * The canvas to draw to.
+	 *
+	 * @var Imagick
+	 */
+	private $canvas;
 
-    /**
-     * Initializes an error image.
-     */
-    public function __construct() {
-        $this->canvas = new\Imagick();
-    }
+	/**
+	 * Initializes an error image.
+	 */
+	public function __construct() {
+		$this->canvas = new\Imagick();
+	}
 
-    /**
-     * Generates and dies with an image containing the heading and the text of the error.
-     *
-     * @param $headingText The heading of the error.
-     * @param $errorText The text of the error.
-     */
-    public function generate($headingText, $errorText) {
-        $draw = new ImagickDraw();
+	/**
+	 * Generates and dies with an image containing the heading and the text of the error.
+	 *
+	 * @param $headingText The heading of the error.
+	 * @param $errorText The text of the error.
+	 */
+	public function generate($headingText, $errorText) {
+		$draw = new ImagickDraw();
 
-        $draw->setFillColor('#777777');
-        $draw->setFontSize(15);
+		$draw->setFillColor('#777777');
+		$draw->setFontSize(15);
 
-        $draw->setFont('fonts/exo2bold.ttf');
-        $headingMetrics = $this->canvas->queryFontMetrics($draw, $headingText);
+		$draw->setFont('fonts/exo2bold.ttf');
+		$headingMetrics = $this->canvas->queryFontMetrics($draw, $headingText);
 
-        $draw->setFont('fonts/exo2regular.ttf');
-        $textMetrics = $this->canvas->queryFontMetrics($draw, $errorText);
+		$draw->setFont('fonts/exo2regular.ttf');
+		$textMetrics = $this->canvas->queryFontMetrics($draw, $errorText);
 
-        $this->canvas->newImage(
-            max($textMetrics['textWidth'], $headingMetrics['textWidth']) + 6,
-            $textMetrics['textHeight'] + $headingMetrics['textHeight'] + 6,
-            new ImagickPixel('transparent'));
+		$this->canvas->newImage(
+			max($textMetrics['textWidth'], $headingMetrics['textWidth']) + 6,
+			$textMetrics['textHeight'] + $headingMetrics['textHeight'] + 6,
+			new ImagickPixel('transparent'));
 
-        $this->canvas->annotateImage($draw, 3, $headingMetrics['textHeight'] * 2, 0, $errorText);
+		$this->canvas->annotateImage($draw, 3, $headingMetrics['textHeight'] * 2, 0, $errorText);
 
-        $draw->setFont('fonts/exo2bold.ttf');
-        $draw->setFillColor('#333333');
-        $draw->setGravity(Imagick::GRAVITY_NORTH);
+		$draw->setFont('fonts/exo2bold.ttf');
+		$draw->setFillColor('#333333');
+		$draw->setGravity(Imagick::GRAVITY_NORTH);
 
-        $this->canvas->annotateImage($draw, 3, 3, 0, $headingText);
+		$this->canvas->annotateImage($draw, 3, 3, 0, $headingText);
 
-        $this->canvas->setImageFormat('png');
+		$this->canvas->setImageFormat('png');
 
-        header('Content-Type: image/'.$this->canvas->getImageFormat());
+		header('Content-Type: image/'.$this->canvas->getImageFormat());
 
-        header("Cache-Control: max-age=1800");
-        header("Expires: ".gmdate("D, d M Y H:i:s", time()+1800)." GMT");
+		header("Cache-Control: max-age=1800");
+		header("Expires: ".gmdate("D, d M Y H:i:s", time()+1800)." GMT");
 
-        die($this->canvas);
-    }
+		die($this->canvas);
+	}
 }
