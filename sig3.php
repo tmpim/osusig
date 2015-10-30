@@ -22,5 +22,7 @@ if (!$user) {
     $errorImage->generate("User not found", "The user you tried to generate \na signature for was not found.");
 }
 
+$colour = isset($_GET['colour']) && !empty($_GET['colour']) ? $_GET['colour'] : 'pink';
+
 $sig = new OsuSignature($user, new TemplateNormal());
-$sig->generate(PredefinedColours::getPredefinedColour($_GET['colour']));
+$sig->generate(PredefinedColours::getPredefinedColour($colour));

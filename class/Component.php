@@ -45,9 +45,9 @@ class Component
 	/**
 	 * Draws this component to the signature's canvas.
 	 *
-	 * @param Signature $signature The signature to draw to.
+	 * @param OsuSignature $signature The signature to draw to.
 	 */
-	public function draw(Signature $signature) {
+	public function draw(OsuSignature $signature) {
 
 	}
 }

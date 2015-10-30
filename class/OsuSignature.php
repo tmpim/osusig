@@ -41,9 +41,9 @@ class OsuSignature extends Signature
 
 
 	/**
-	 * The username of the requested signature's subject
+	 * The user data of the requested signature's subject
 	 *
-	 * @var string
+	 * @var array
 	 */
 	private $user;
 
@@ -86,6 +86,14 @@ class OsuSignature extends Signature
 		$height = $this->template->calculateBaseHeight() + (SELF::SIG_MARGIN * 2);
 
 		parent::__construct($width, $height);
+	}
+
+	/**
+	 * @return array The user data of the requested signature's subject
+	 */
+	public function getUser()
+	{
+		return $this->user;
 	}
 
 	/**
