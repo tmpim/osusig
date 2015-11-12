@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Lemmy
+ * @author Lemmmy
  */
 class ComponentAvatar extends Component
 {

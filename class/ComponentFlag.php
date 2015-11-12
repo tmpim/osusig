@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Lemmy
+ * @author Lemmmy
  */
 class ComponentFlag extends Component
 {

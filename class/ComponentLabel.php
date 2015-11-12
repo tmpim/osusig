@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Lemmy
+ * @author Lemmmy
  */
 class ComponentLabel extends Component
 {
