@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @author Lemmy
+ * @author Lemmmy
  */
 class OsuAPI
 {
