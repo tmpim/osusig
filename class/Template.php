@@ -78,7 +78,9 @@ class Template
 		$x1 = 0;
 		$x2 = 0;
 
+		/** @var Component $component */
 		foreach ($this->getComponents() as $component) {
+			if (!$component->usesSpace) continue;
 			if ($component->x < $x1) $x1 = $component->x;
 			if ($component->x + $component->getWidth() > $x2) $x2 = $component->x + $component->getWidth();
 		}
@@ -101,6 +103,7 @@ class Template
 		$y2 = 0;
 
 		foreach ($this->getComponents() as $component) {
+			if (!$component->usesSpace) continue;
 			if ($component->y < $y1) $y1 = $component->y;
 			if ($component->y + $component->getHeight() > $y2) $y2 = $component->y + $component->getHeight();
 		}

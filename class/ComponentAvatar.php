@@ -111,8 +111,8 @@ class ComponentAvatar extends Component
 				0,
 				$this->getWidth(),
 				$this->getHeight(),
-				OsuSignature::SIG_ROUNDING,
-				OsuSignature::SIG_ROUNDING
+				OsuSignature::SIG_ROUNDING * 2,
+				OsuSignature::SIG_ROUNDING * 2
 			);
 
 			$roundImage->drawImage($roundMask);

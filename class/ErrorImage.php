@@ -21,8 +21,8 @@ class ErrorImage
 	/**
 	 * Generates and dies with an image containing the heading and the text of the error.
 	 *
-	 * @param $headingText The heading of the error.
-	 * @param $errorText The text of the error.
+	 * @param string $headingText The heading of the error.
+	 * @param string $errorText The text of the error.
 	 */
 	public function generate($headingText, $errorText) {
 		$draw = new ImagickDraw();

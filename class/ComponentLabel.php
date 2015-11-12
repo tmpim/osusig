@@ -103,7 +103,7 @@ class ComponentLabel extends Component
 	 * @param string $colour The colour of the text of the label
 	 * @param int $fontSize The size of the font of the label
 	 * @param int $textAlignment The text alignment
-	 * @param int $width Width of the label, set to -1 to use the text size, anything bigger can be used to spoof the component system
+	 * @param int $width Width of the label, set to -1 to use the text size, anything bigger can be used to spoof the component system. -2 makes the component sizeless
 	 * @param int $height Height of the label, set to -1 to use the text size, anything bigger can be used to spoof the component system
 	 */
 	public function __construct(
@@ -134,12 +134,15 @@ class ComponentLabel extends Component
 		$this->drawSettings->setTextAlignment($textAlignment);
 		$this->drawSettings->setFillColor($colour);
 
+		$this->usesSpace = $width != -2;
+
 		if ($width <= -1 || $height <= -1) {
 			$tempImg = new Imagick();
 			$metrics = $tempImg->queryFontMetrics($this->drawSettings, $this->text);
 			$this->width = $width <= -1 ? $metrics['textWidth'] : $width;
+			// yeah i have to do some bullshit
 			$this->actualWidth = $metrics['textWidth'];
-			$this->height = $height <= -1 ? $metrics['textHeight'] : $height;
+			$this->height = $metrics['boundingBox']['y2'] - $this->y;
 		}
 	}
 

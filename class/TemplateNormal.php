@@ -13,6 +13,13 @@ class TemplateNormal extends Template
 
 		$isCountryRank = isset($_GET['countryrank']);
 		$removeAvatarMargin = isset($_GET['removeavmargin']);
+		$showPP = isset($_GET['pp']);
+		$pp = $showPP ? $_GET['pp'] : -1;
+
+		if ($showPP && ($pp < 0 || $pp > 3)) {
+			$errorImage = new ErrorImage();
+			$errorImage->generate("Invalid parameter", "Parameter 'pp' has an\ninvalid value");
+		}
 
 		$userRank = $signature->getUser()['pp_rank'];
 		$userRank = $userRank ? $userRank : '?';
@@ -39,6 +46,7 @@ class TemplateNormal extends Template
 				break;
 		}
 		$username = $signature->getUser()['username'];
+		$ppText = $signature->getUser()['pp_raw'];
 
 		$avatar = new ComponentAvatar(
 			$signature,
@@ -57,7 +65,7 @@ class TemplateNormal extends Template
 			'#FFFFFF',
 			$isCountryRank ? 12 : 14,
 			\Imagick::ALIGN_RIGHT,
-			1
+			0
 		);
 
 		$mode = new ComponentLabel(
@@ -101,6 +109,45 @@ class TemplateNormal extends Template
 			ComponentLabel::FONT_MEDIUM,
 			'#FFFFFF',
 			$nameFontSize,
+			\Imagick::ALIGN_LEFT,
+			-2
+		);
+
+		if ($showPP && $pp == 2) {
+			$ppLabel = new ComponentLabel(
+				$signature,
+				$isCountryRank ? 293 : 326,
+				18,
+				number_format(floor($ppText)) . 'pp',
+				ComponentLabel::FONT_REGULAR,
+				'#FFFFFF',
+				10,
+				\Imagick::ALIGN_RIGHT,
+				-2
+			);
+
+			$this->addComponent($ppLabel);
+		}
+
+		$accuracyLabel = new ComponentLabel(
+			$signature,
+			91,
+			56,
+			"Accuracy",
+			ComponentLabel::FONT_REGULAR,
+			'#555555',
+			14,
+			\Imagick::ALIGN_LEFT
+		);
+
+		$playCountLabel = new ComponentLabel(
+			$signature,
+			91,
+			73,
+			"Play Count",
+			ComponentLabel::FONT_REGULAR,
+			'#555555',
+			14,
 			\Imagick::ALIGN_LEFT
 		);
 
@@ -109,6 +156,8 @@ class TemplateNormal extends Template
 		$this->addComponent($mode);
 		$this->addComponent($flag);
 		$this->addComponent($name);
+		$this->addComponent($accuracyLabel);
+		$this->addComponent($playCountLabel);
 
 		// I don't know either.
 		$this->extraWidth = OsuSignature::SIG_MARGIN * 2 + 1 - ($isCountryRank ? 2 : 0);

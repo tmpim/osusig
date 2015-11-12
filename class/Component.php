@@ -13,9 +13,17 @@ class Component
 
 	/**
 	 * The Y position of this component.
+	 *
 	 * @var int
 	 */
 	public $y;
+
+	/**
+	 * Should the component count towards template size?
+	 *
+	 * @var bool
+	 */
+	public $usesSpace = true;
 
 	/**
 	 * Initializes this component.
