@@ -11,13 +11,6 @@ class OsuAPI
 	const API_URL = "https://osu.ppy.sh/api/";
 
 	/**
-	 * Each mode of osu! that we want to use
-	 *
-	 * @var array
-	 */
-	protected static $modes = ["osu", "taiko", "ctb", "mania"];
-
-	/**
 	 * Your private osu!API key
 	 *
 	 * @var string
@@ -54,7 +47,7 @@ class OsuAPI
 	 */
 	public function getUserForMode($username, $mode = "osu")
 	{
-		if (in_array($mode, static::$modes)) {
+		if ($mode < 4) {
 			$user = $this->mc->get("osusigv3_user_" . $mode . "_" . strtolower($username));
 
 			if (!$user) {
@@ -68,6 +61,11 @@ class OsuAPI
 			} else {
 				return $user;
 			}
+
+			return false;
+		} else {
+			$errorImage = new ErrorImage();
+			$errorImage->generate("Invalid mode", "You specified an invalid mode\nfor the signature.");
 
 			return false;
 		}

@@ -7,12 +7,12 @@ class OsuSignature extends Signature
 	/**
 	 * The margin of the entire signature card
 	 */
-	const SIG_MARGIN = 4;
+	const SIG_MARGIN = 3;
 
 	/**
 	 * The outer stroke width of the signature card
 	 */
-	const SIG_STROKE_WIDTH = 3;
+	const SIG_STROKE_WIDTH = 2;
 
 	/**
 	 * The inner padding of the signature card
@@ -78,12 +78,10 @@ class OsuSignature extends Signature
 	 */
 	public function __construct($user, $template) {
 		$this->user = $user;
-		$this->template = $template;
+		$this->template = new $template($this);
 
-		$this->template->setSignature($this);
-
-		$width = $this->template->calculateBaseWidth() + (SELF::SIG_MARGIN * 2);
-		$height = $this->template->calculateBaseHeight() + (SELF::SIG_MARGIN * 2);
+		$width = $this->template->calculateBaseWidth() + (self::SIG_MARGIN * 2);
+		$height = $this->template->calculateBaseHeight() + (self::SIG_MARGIN * 2);
 
 		parent::__construct($width, $height);
 	}
@@ -129,8 +127,8 @@ class OsuSignature extends Signature
 			self::SIG_MARGIN + (self::SIG_STROKE_WIDTH / 2),
 			($this->baseWidth + self::SIG_MARGIN - 1) - (self::SIG_STROKE_WIDTH / 2),
 			($this->baseHeight + self::SIG_MARGIN - 1) - (self::SIG_STROKE_WIDTH / 2),
-			self::SIG_OUTER_ROUNDING,
-			self::SIG_OUTER_ROUNDING);
+			self::SIG_OUTER_ROUNDING * 2,
+			self::SIG_OUTER_ROUNDING * 2);
 
 		$base->drawImage($background);
 	}
@@ -160,7 +158,7 @@ class OsuSignature extends Signature
 
 		$triangles = new Imagick();
 		$triangles->newImage(
-			$this->baseWidth - (self::SIG_STROKE_WIDTH * 2),
+			$this->baseWidth - (self::SIG_STROKE_WIDTH * 2) - 2,
 			self::TRIANGLE_STRIP_HEIGHT + self::SIG_STROKE_WIDTH,
 			new ImagickPixel($hexColour));
 		$triangles = $triangles->textureImage($originalTriangles);
@@ -168,7 +166,7 @@ class OsuSignature extends Signature
 		// The gradient to draw over the triangles
 		$trianglesGradient1 = new Imagick();
 		$trianglesGradient1->newPseudoImage(
-			$this->baseWidth - (self::SIG_STROKE_WIDTH * 2),
+			$this->baseWidth - (self::SIG_STROKE_WIDTH * 2) - 2,
 			self::TRIANGLE_STRIP_HEIGHT + self::SIG_STROKE_WIDTH,
 			'gradient:' . 'none' . '-' . $hexColour);
 		$trianglesGradient1->setImageOpacity(0.6);
@@ -176,11 +174,11 @@ class OsuSignature extends Signature
 		// The second gradient to draw over the triangles
 		$trianglesGradient2 = new Imagick();
 		$trianglesGradient2->newPseudoImage(
-			$this->baseWidth - (self::SIG_STROKE_WIDTH * 2),
+			$this->baseWidth - (self::SIG_STROKE_WIDTH * 2) - 2,
 			self::TRIANGLE_STRIP_HEIGHT + self::SIG_STROKE_WIDTH,
 			'gradient:' . '#4a4a4a' . '-' . '#313131');
 
-		// Composite the black and white graidnet onto the triangles
+		// Composite the black and white gradient onto the triangles
 		$triangles->compositeImage(
 			$trianglesGradient2,
 			Imagick::COMPOSITE_OVERLAY,
@@ -193,14 +191,14 @@ class OsuSignature extends Signature
 		$this->canvas->compositeImage(
 			$triangles,
 			Imagick::COMPOSITE_DEFAULT,
-			self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
-			self::SIG_MARGIN + self::SIG_STROKE_WIDTH);
+			self::SIG_MARGIN + self::SIG_STROKE_WIDTH + 1,
+			self::SIG_MARGIN + self::SIG_STROKE_WIDTH * 1.5);
 
 		// Composite the triangles gradient onto the base
 		$this->canvas->compositeImage($trianglesGradient1,
 			Imagick::COMPOSITE_DEFAULT,
-			self::SIG_MARGIN + self::SIG_STROKE_WIDTH,
-			self::SIG_MARGIN + self::SIG_STROKE_WIDTH);
+			self::SIG_MARGIN + self::SIG_STROKE_WIDTH + 1,
+			self::SIG_MARGIN + self::SIG_STROKE_WIDTH * 1.5);
 	}
 
 	/**
@@ -219,14 +217,14 @@ class OsuSignature extends Signature
 		$shadowArea->roundRectangle(
 			0,
 			0,
-			$this->baseWidth - 2,
-			$this->baseHeight - 3,
+			$this->baseWidth - 1,
+			$this->baseHeight - 2,
 			self::SIG_ROUNDING,
 			self::SIG_ROUNDING
 		);
 
 		$shadow->drawImage($shadowArea);
-		$shadow->shadowImage(50, 2, 0, 0);
+		$shadow->shadowImage(30, 1.5, 0, 0);
 
 		$this->canvas->compositeImage($shadow, Imagick::COMPOSITE_DEFAULT, 0, 1);
 	}
@@ -255,19 +253,46 @@ class OsuSignature extends Signature
 	 * @param string $hexColour [Hexadecimal colour value for the card stroke]
 	 */
 	public function drawFinalStroke($hexColour) {
+		$cardStrokeImage = new Imagick();
+		$cardStrokeImage->newPseudoImage($this->getCanvas()->getImageWidth(), $this->getCanvas()->getImageHeight(), 'canvas:transparent');
+
 		$cardStroke = new ImagickDraw();
-		$cardStroke->setStrokeColor(new ImagickPixel($hexColour));
-		$cardStroke->setStrokeWidth(3.0);
-		$cardStroke->setFillColor(new ImagickPixel('transparent'));
+		$cardStroke->setFillColor(new ImagickPixel($hexColour));
+
 		$cardStroke->roundRectangle(
 			self::SIG_MARGIN + (self::SIG_STROKE_WIDTH / 2),
 			self::SIG_MARGIN + (self::SIG_STROKE_WIDTH / 2),
 			($this->baseWidth + self::SIG_MARGIN - 1) - (self::SIG_STROKE_WIDTH / 2),
 			($this->baseHeight + self::SIG_MARGIN - 1) - (self::SIG_STROKE_WIDTH / 2),
-			self::SIG_OUTER_ROUNDING,
-			self::SIG_OUTER_ROUNDING);
+			self::SIG_OUTER_ROUNDING * 2,
+			self::SIG_OUTER_ROUNDING * 2);
 
-		$this->canvas->drawImage($cardStroke);
+		$cardStrokeImage->drawImage($cardStroke);
+
+		$roundImage = new Imagick();
+		$roundImage->newPseudoImage($this->getCanvas()->getImageWidth(), $this->getCanvas()->getImageHeight(), 'canvas:transparent');
+
+		$roundMask = new ImagickDraw();
+		$roundMask->setFillColor(new ImagickPixel('black'));
+		$roundMask->roundRectangle(
+			self::SIG_MARGIN + self::SIG_STROKE_WIDTH * 2,
+			self::SIG_MARGIN + self::SIG_STROKE_WIDTH * 2,
+			($this->baseWidth + self::SIG_MARGIN) - self::SIG_STROKE_WIDTH * 2 - 1,
+			($this->baseHeight + self::SIG_MARGIN) - self::SIG_STROKE_WIDTH * 2 - 1,
+			self::SIG_ROUNDING,
+			self::SIG_ROUNDING
+		);
+
+		$roundImage->drawImage($roundMask);
+
+		$cardStrokeImage->compositeImage(
+			$roundImage,
+			Imagick::COMPOSITE_DSTOUT,
+			0,
+			0
+		);
+
+		$this->canvas->compositeImage($cardStrokeImage, \Imagick::COMPOSITE_DEFAULT, 0, 0);
 	}
 
 	public function generate($hexColour = "#bb1177") {

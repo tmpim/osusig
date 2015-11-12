@@ -88,9 +88,10 @@ class ComponentLabel extends Component
 	/**
 	 * Creates a new Label component.
 	 *
+	 * @param OsuSignature $signature The base signature
 	 * @param int $x The X position of this label
 	 * @param int $y The Y position of this label
-	 * @param $text The text of this label
+	 * @param string $text The text of this label
 	 * @param string $font The font to use for this label; can be a string or the constants defined in {@link ComponentLabel}
 	 * @param string $colour The colour of the text of the label
 	 * @param int $fontSize The size of the font of the label
@@ -99,15 +100,18 @@ class ComponentLabel extends Component
 	 * @param int $height Height of the label, set to -1 to use the text size, anything bigger can be used to spoof the component system
 	 */
 	public function __construct(
+		OsuSignature $signature,
 		$x = 0,
 		$y = 0,
 		$text,
-		$font = 'exo2regular.ttf',
+		$font = self::FONT_REGULAR,
 		$colour = '#555555',
 		$fontSize = 14,
 		$textAlignment = Imagick::ALIGN_UNDEFINED,
 		$width = -1,
 		$height = -1) {
+
+		parent::__construct($signature, $x, $y);
 
 		$this->text = $text;
 		$this->font = $font;
@@ -118,7 +122,7 @@ class ComponentLabel extends Component
 		$this->height = $height;
 
 		$this->drawSettings = new ImagickDraw();
-		$this->drawSettings->setFont($font);
+		$this->drawSettings->setFont(self::FONT_DIRECTORY . $font);
 		$this->drawSettings->setFontSize($fontSize);
 		$this->drawSettings->setTextAlignment($textAlignment);
 		$this->drawSettings->setFillColor($colour);
@@ -126,12 +130,9 @@ class ComponentLabel extends Component
 		if ($width <= -1 || $height <= -1) {
 			$tempImg = new Imagick();
 			$metrics = $tempImg->queryFontMetrics($this->drawSettings, $this->text);
-
 			$this->width = $width <= -1 ? $metrics['textWidth'] : $width;
 			$this->height = $height <= -1 ? $metrics['textHeight'] : $height;
 		}
-
-		parent::__construct($x, $y);
 	}
 
 	public function getWidth() {

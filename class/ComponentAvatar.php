@@ -7,11 +7,18 @@ class ComponentAvatar extends Component
 	const AVATAR_URL = 'https://a.ppy.sh/';
 
 	/**
-	 * The margin between the card content and the avatar
+	 * The width of this avatar
 	 *
 	 * @var int
 	 */
-	private $margin;
+	private $width;
+
+	/**
+	 * The height of this avatar
+	 *
+	 * @var int
+	 */
+	private $height;
 
 	/**
 	 * The memcache object
@@ -20,21 +27,22 @@ class ComponentAvatar extends Component
 	 */
 	private $mc;
 
-	public function __construct($x = 0, $y = 0) {
-		$this->margin = isset($_GET['removeavmargin']) ? 0 : 3;
+	public function __construct(OsuSignature $signature, $x = 0, $y = 0, $width = 78, $height = 78) {
+		parent::__construct($signature, $x, $y);
+
+		$this->width = $width;
+		$this->height = $height;
 
 		$this->mc = new Memcached();
 		$this->mc->addServer("localhost", 11211);
-
-		parent::__construct($x, $y);
 	}
 
 	public function getWidth() {
-		return 80;
+		return $this->width;
 	}
 
 	public function getHeight() {
-		return 80;
+		return $this->height;
 	}
 
 	/**
@@ -87,8 +95,8 @@ class ComponentAvatar extends Component
 
 		if ($avatar) {
 			$avatar->resizeImage(
-				$this->getWidth() - ($this->margin * 2) - 1,
-				$this->getHeight() - ($this->margin * 2) - 1,
+				$this->getWidth(),
+				$this->getHeight(),
 				Imagick::FILTER_CATROM,
 				1
 			);
@@ -101,8 +109,8 @@ class ComponentAvatar extends Component
 			$roundMask->roundRectangle(
 				0,
 				0,
-				$this->getWidth() - ($this->margin * 2) - 1,
-				$this->getHeight() - ($this->margin * 2) - 1,
+				$this->getWidth(),
+				$this->getHeight(),
 				OsuSignature::SIG_ROUNDING,
 				OsuSignature::SIG_ROUNDING
 			);
@@ -119,8 +127,8 @@ class ComponentAvatar extends Component
 			$signature->getCanvas()->compositeImage(
 				$avatar,
 				Imagick::COMPOSITE_DEFAULT,
-				$this->x + $this->margin + 1,
-				$this->y + $this->margin + 1
+				$this->x,
+				$this->y
 			);
 		}
 	}

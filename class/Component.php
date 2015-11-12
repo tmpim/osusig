@@ -20,10 +20,11 @@ class Component
 	/**
 	 * Initializes this component.
 	 *
+	 * @param OsuSignature $signature The base signature
 	 * @param int $x The X position of this component
 	 * @param int $y The Y position of this component
 	 */
-	public function __construct($x = 0, $y = 0) {
+	public function __construct(OsuSignature $signature, $x = 0, $y = 0) {
 		$this->x = $x;
 		$this->y = $y;
 	}

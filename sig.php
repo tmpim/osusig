@@ -193,7 +193,18 @@ $avatar = new Imagick();
 $cachedPicture = $mc->get("profilepicture_" . strtolower($uname));
 
 if (!$cachedPicture) {
-    $avatar = new Imagick($avatarURL);
+	$avatarBlob = @file_get_contents($avatarURL);
+
+	$matches = array();
+	preg_match('#HTTP/\d+\.\d+ (\d+)#', $http_response_header[0], $matches);
+
+	$avatar = new Imagick();
+
+	if ($matches[1] == 200) {
+		$avatar->readImageBlob($avatarBlob);
+	} else {
+		$avatar->newImage(80, 80, new ImagickPixel('white'));
+	}
     $avatar->setImageFormat('png');
 
     $mc->set("profilepicture_" . strtolower($uname), base64_encode($avatar->getImageBlob()), 43200);

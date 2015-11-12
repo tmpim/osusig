@@ -19,6 +19,29 @@ class Template
 	private $signature;
 
 	/**
+	 * Extra padding to be added to the signature.
+	 *
+	 * @var int
+	 */
+	protected $extraWidth;
+
+	/**
+	 * Extra padding to be added to the signature.
+	 *
+	 * @var int
+	 */
+	protected $extraHeight;
+
+	/**
+	 * Add the components.
+	 *
+	 * @param OsuSignature $signature The base signature.
+	 */
+	public function __construct(OsuSignature $signature) {
+		$this->signature = $signature;
+	}
+
+	/**
 	 * This template's components.
 	 *
 	 * @return array
@@ -33,14 +56,6 @@ class Template
 	public function getSignature()
 	{
 		return $this->signature;
-	}
-
-	/**
-	 * @param Signature $signature Sets the signature that this is a template of.
-	 */
-	public function setSignature($signature)
-	{
-		$this->signature = $signature;
 	}
 
 	/**
@@ -68,7 +83,7 @@ class Template
 			if ($component->x + $component->getWidth() > $x2) $x2 = $component->x + $component->getWidth();
 		}
 
-		return $x2 - $x1;
+		return $x2 - $x1 + $this->extraWidth;
 
 		//return 330;
 	}
@@ -90,7 +105,7 @@ class Template
 			if ($component->y + $component->getHeight() > $y2) $y2 = $component->y + $component->getHeight();
 		}
 
-		return $y2 - $y1;
+		return $y2 - $y1 + $this->extraHeight;
 
 		//return 86;
 	}
