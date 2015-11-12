@@ -101,6 +101,8 @@ class ComponentAvatar extends Component
 				1
 			);
 
+			$avatar->setImageAlphaChannel(Imagick::ALPHACHANNEL_SET);
+
 			$roundImage = new Imagick();
 			$roundImage->newPseudoImage($this->getWidth(), $this->getHeight(), 'canvas:transparent');
 
@@ -109,19 +111,21 @@ class ComponentAvatar extends Component
 			$roundMask->roundRectangle(
 				0,
 				0,
-				$this->getWidth(),
-				$this->getHeight(),
-				OsuSignature::SIG_ROUNDING * 2,
-				OsuSignature::SIG_ROUNDING * 2
+				$this->getWidth() - 1,
+				$this->getHeight() - 1,
+				OsuSignature::SIG_ROUNDING,
+				OsuSignature::SIG_ROUNDING
 			);
 
 			$roundImage->drawImage($roundMask);
+			$roundImage->setImageFormat('png');
 
 			$avatar->compositeImage(
 				$roundImage,
 				Imagick::COMPOSITE_DSTIN,
 				0,
-				0
+				0,
+				Imagick::CHANNEL_ALPHA
 			);
 
 			$signature->getCanvas()->compositeImage(

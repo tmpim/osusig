@@ -47,6 +47,9 @@ class TemplateNormal extends Template
 		}
 		$username = $signature->getUser()['username'];
 		$ppText = $signature->getUser()['pp_raw'];
+		$accuracy = $signature->getUser()['accuracy'];
+		$playcount = $signature->getUser()['playcount'];
+		$level = $signature->getUser()['level'];
 
 		$avatar = new ComponentAvatar(
 			$signature,
@@ -70,7 +73,7 @@ class TemplateNormal extends Template
 
 		$mode = new ComponentLabel(
 			$signature,
-			$isCountryRank ? 315 : 290,
+			$isCountryRank ? 313 : 290,
 			$isCountryRank ? 18 : 31,
 			json_decode('"\\ue00' . $iconmode . '"'),
 			ComponentLabel::FONT_OSU,
@@ -82,7 +85,7 @@ class TemplateNormal extends Template
 
 		$flag = new ComponentFlag(
 			$signature,
-			$isCountryRank ? 297 : 307,
+			$isCountryRank ? 294 : 307,
 			$isCountryRank ? 10 : 21,
 			$isCountryRank ? 13 : 18,
 			$isCountryRank ? 9 : 12
@@ -116,7 +119,7 @@ class TemplateNormal extends Template
 		if ($showPP && $pp == 2) {
 			$ppLabel = new ComponentLabel(
 				$signature,
-				$isCountryRank ? 293 : 326,
+				$isCountryRank ? 290 : 326,
 				18,
 				number_format(floor($ppText)) . 'pp',
 				ComponentLabel::FONT_REGULAR,
@@ -151,6 +154,32 @@ class TemplateNormal extends Template
 			\Imagick::ALIGN_LEFT
 		);
 
+		$accuracyText = round($accuracy, 2) . '%' . ($showPP && $pp == 1 ? ' (' . number_format(floor($ppText)) . 'pp)' : '');
+		$accuracyValueLabel = new ComponentLabel(
+			$signature,
+			325,
+			56,
+			$accuracyText,
+			ComponentLabel::FONT_BOLD,
+			'#555555',
+			14,
+			\Imagick::ALIGN_RIGHT,
+			-2
+		);
+
+		$playCountText = number_format($playcount) . ($showPP && $pp == 0 ? ' (' . number_format(floor($ppText)) . 'pp)' : ' (lv' . floor($level) . ')');
+		$playCountValueLabel = new ComponentLabel(
+			$signature,
+			325,
+			73,
+			$playCountText,
+			ComponentLabel::FONT_BOLD,
+			'#555555',
+			14,
+			\Imagick::ALIGN_RIGHT,
+			-2
+		);
+
 		$this->addComponent($avatar);
 		$this->addComponent($rank);
 		$this->addComponent($mode);
@@ -158,6 +187,8 @@ class TemplateNormal extends Template
 		$this->addComponent($name);
 		$this->addComponent($accuracyLabel);
 		$this->addComponent($playCountLabel);
+		$this->addComponent($accuracyValueLabel);
+		$this->addComponent($playCountValueLabel);
 
 		// I don't know either.
 		$this->extraWidth = OsuSignature::SIG_MARGIN * 2 + 1 - ($isCountryRank ? 2 : 0);
