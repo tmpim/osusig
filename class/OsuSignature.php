@@ -224,7 +224,7 @@ class OsuSignature extends Signature
 		);
 
 		$shadow->drawImage($shadowArea);
-		$shadow->shadowImage(30, 1.5, 0, 0);
+		$shadow->shadowImage(15, 1.5, 0, 0);
 
 		$this->canvas->compositeImage($shadow, Imagick::COMPOSITE_DEFAULT, 0, 1);
 	}

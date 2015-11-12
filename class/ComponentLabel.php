@@ -72,6 +72,13 @@ class ComponentLabel extends Component
 	private $width;
 
 	/**
+	 * The actual calculated width of this label
+	 *
+	 * @var int
+	 */
+	private $actualWidth;
+
+	/**
 	 * The predefined or calculated height of this label
 	 *
 	 * @var int
@@ -131,12 +138,17 @@ class ComponentLabel extends Component
 			$tempImg = new Imagick();
 			$metrics = $tempImg->queryFontMetrics($this->drawSettings, $this->text);
 			$this->width = $width <= -1 ? $metrics['textWidth'] : $width;
+			$this->actualWidth = $metrics['textWidth'];
 			$this->height = $height <= -1 ? $metrics['textHeight'] : $height;
 		}
 	}
 
 	public function getWidth() {
 		return $this->width;
+	}
+
+	public function getActualWidth() {
+		return $this->actualWidth;
 	}
 
 	public function getHeight() {

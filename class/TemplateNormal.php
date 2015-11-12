@@ -4,6 +4,10 @@
  */
 class TemplateNormal extends Template
 {
+	private static function getGDFontSize ($size) {
+		return ($size * 3) / 4;
+	}
+
 	public function __construct(OsuSignature $signature) {
 		parent::__construct($signature);
 
@@ -34,6 +38,7 @@ class TemplateNormal extends Template
 				$iconmode = 1;
 				break;
 		}
+		$username = $signature->getUser()['username'];
 
 		$avatar = new ComponentAvatar(
 			$signature,
@@ -46,7 +51,7 @@ class TemplateNormal extends Template
 		$rank = new ComponentLabel(
 			$signature,
 			$isCountryRank ? 325 : 287,
-			$isCountryRank ? 34 : 32,
+			32,
 			'#' . number_format($userRank) . ($isCountryRank ? " (" . '#' . number_format($userCountryRank) . ')' : ""),
 			ComponentLabel::FONT_REGULAR,
 			'#FFFFFF',
@@ -75,13 +80,38 @@ class TemplateNormal extends Template
 			$isCountryRank ? 9 : 12
 		);
 
+		$nameFontSize = 24;
+		$nameFont = ComponentLabel::FONT_DIRECTORY . ComponentLabel::FONT_MEDIUM;
+
+		$nameDimensions = imagettfbbox(static::getGDFontSize($nameFontSize), 0, $nameFont, $username);
+		$nameTextWidth = abs($nameDimensions[4] - $nameDimensions[0]);
+
+		while ($nameTextWidth > ($isCountryRank ? 235 : 198) - $rank->getActualWidth()) {
+			$nameDimensions = imagettfbbox(static::getGDFontSize($nameFontSize), 0, $nameFont, $username);
+			$nameTextWidth = abs($nameDimensions[4] - $nameDimensions[0]);
+
+			$nameFontSize -= 0.5;
+		}
+
+		$name = new ComponentLabel(
+			$signature,
+			90,
+			32,
+			$username,
+			ComponentLabel::FONT_MEDIUM,
+			'#FFFFFF',
+			$nameFontSize,
+			\Imagick::ALIGN_LEFT
+		);
+
 		$this->addComponent($avatar);
 		$this->addComponent($rank);
 		$this->addComponent($mode);
 		$this->addComponent($flag);
+		$this->addComponent($name);
 
 		// I don't know either.
-		$this->extraWidth = OsuSignature::SIG_MARGIN * 2 + 1;
+		$this->extraWidth = OsuSignature::SIG_MARGIN * 2 + 1 - ($isCountryRank ? 2 : 0);
 		$this->extraHeight = $removeAvatarMargin ? 1 : 3;
 	}
 }
