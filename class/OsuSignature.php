@@ -140,6 +140,8 @@ class OsuSignature extends Signature
 	 */
 	public function drawTriangleStrip($hexColour) {
 		// The base for the triangles strip, to be drawn over the plain
+		$darkTriangles = isset($_GET['darktriangles']);
+
 		$backArea = new ImagickDraw();
 		$backArea->setFillColor(new ImagickPixel($hexColour));
 		$backArea->rectangle(
@@ -185,7 +187,7 @@ class OsuSignature extends Signature
 			0,
 			0);
 
-		$triangles->setImageOpacity(0.1);
+		$triangles->setImageOpacity($darkTriangles ? 0.2 : 0.1);
 
 		// Composite the triangles onto the base
 		$this->canvas->compositeImage(

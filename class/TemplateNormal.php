@@ -15,6 +15,7 @@ class TemplateNormal extends Template
 		$removeAvatarMargin = isset($_GET['removeavmargin']);
 		$showPP = isset($_GET['pp']);
 		$pp = $showPP ? $_GET['pp'] : -1;
+		$darkHeader = isset($_GET['darkheader']);
 
 		if ($showPP && ($pp < 0 || $pp > 3)) {
 			$errorImage = new ErrorImage();
@@ -65,7 +66,7 @@ class TemplateNormal extends Template
 			32,
 			'#' . number_format($userRank) . ($isCountryRank ? " (" . '#' . number_format($userCountryRank) . ')' : ""),
 			ComponentLabel::FONT_REGULAR,
-			'#FFFFFF',
+			$darkHeader ? '#555555' : '#FFFFFF',
 			$isCountryRank ? 12 : 14,
 			\Imagick::ALIGN_RIGHT,
 			0
@@ -77,7 +78,7 @@ class TemplateNormal extends Template
 			$isCountryRank ? 18 : 31,
 			json_decode('"\\ue00' . $iconmode . '"'),
 			ComponentLabel::FONT_OSU,
-			'#FFFFFF',
+			$darkHeader ? '#555555' : '#FFFFFF',
 			$isCountryRank ? 12 : 14,
 			\Imagick::ALIGN_LEFT,
 			$isCountryRank ? 12 : 14
@@ -110,27 +111,11 @@ class TemplateNormal extends Template
 			32,
 			$username,
 			ComponentLabel::FONT_MEDIUM,
-			'#FFFFFF',
+			$darkHeader ? '#555555' : '#FFFFFF',
 			$nameFontSize,
 			\Imagick::ALIGN_LEFT,
 			-2
 		);
-
-		if ($showPP && $pp == 2) {
-			$ppLabel = new ComponentLabel(
-				$signature,
-				$isCountryRank ? 290 : 326,
-				18,
-				number_format(floor($ppText)) . 'pp',
-				ComponentLabel::FONT_REGULAR,
-				'#FFFFFF',
-				10,
-				\Imagick::ALIGN_RIGHT,
-				-2
-			);
-
-			$this->addComponent($ppLabel);
-		}
 
 		$accuracyLabel = new ComponentLabel(
 			$signature,
@@ -189,6 +174,22 @@ class TemplateNormal extends Template
 		$this->addComponent($playCountLabel);
 		$this->addComponent($accuracyValueLabel);
 		$this->addComponent($playCountValueLabel);
+
+		if ($showPP && $pp == 2) {
+			$ppLabel = new ComponentLabel(
+				$signature,
+				$isCountryRank ? 290 : 326,
+				18,
+				number_format(floor($ppText)) . 'pp',
+				ComponentLabel::FONT_REGULAR,
+				'#FFFFFF',
+				10,
+				\Imagick::ALIGN_RIGHT,
+				-2
+			);
+
+			$this->addComponent($ppLabel);
+		}
 
 		// I don't know either.
 		$this->extraWidth = OsuSignature::SIG_MARGIN * 2 + 1 - ($isCountryRank ? 2 : 0);

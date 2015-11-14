@@ -18,6 +18,7 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+        <script src="js/spectrum.js"></script>
         <script src="js/app.js"></script>
     </head>
     <body>
@@ -39,12 +40,18 @@
                 <li style="background-color: #25e" id="colour-darkblue">dark blue</li>
                 <li style="background-color: #b17" id="colour-pink" class="selected">dark pink</li>
                 <li style="background-color: #000" id="colour-black">black</li>
+                <br>
+                <br>
+                <li style="background-color: #b17; background-repeat: no-repeat; background-position: center; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.6)" id="colour-hex">custom</li>
+                <br>
+                <br>
+                <input type="text" id="hex-picker" />
             </ul>
         </article>
         <header>Set your data</header>
         <article style="text-align: center;">
             <label for="uname">Name</label>
-            <input type="text" placeholder="Lemmmy" name="uname" id="uname">
+            <input type="text" placeholder="Lemmmy" name="uname" id="uname" />
             <br><br>
             <label for="mode">Mode</label>
             <ul class="modes">
@@ -62,7 +69,7 @@
                 <li id="ppmode-2">above rank</li>
             </ul>
             <br><br>
-            <input type="checkbox" name="country-rank"> Display your country rank (experimental)
+            <input type="checkbox" name="country-rank" /> Display your country rank (experimental)
         </article>
         <header>Your Signature</header>
         <article style="text-align: center;">
@@ -71,7 +78,7 @@
             </div>
             <br>
             <label for="out">BBCode:</label>
-            <input type="text" name="out" id="out" value="[img]http://lemmmy.pw/osusig/sig.php?colour=pink&uname=Lemmmy[/img]" style="width: 100%; text-align: center" readonly>
+            <input type="text" name="out" id="out" value="[img]http://lemmmy.pw/osusig/sig.php?colour=pink&uname=Lemmmy[/img]" style="width: 100%; text-align: center" readonly />
             <br><br>
             <a href="#" id="regen" class="button">Generate</a>
         </article>
@@ -79,15 +86,21 @@
         <article style="text-align: center;" class="twocol">
             <div class="twocol-col">
                 <span>
-                    <input type="checkbox" name="adv-av-margin"> Remove extra margin from avatar
+                    <input type="checkbox" name="adv-av-margin" /> Remove extra margin from avatar
                 </span>
                 <span>
-                    <input type="checkbox" name="adv-flag-shadow"> Add a shadow behind the flag
+                    <input type="checkbox" name="adv-flag-shadow" /> Add a shadow behind the flag
+                </span>
+                <span>
+                    <input type="checkbox" name="adv-flag-stroke" /> Add a white outline to the flag
                 </span>
             </div>
             <div class="twocol-col">
                 <span>
-                    <input type="checkbox" name="adv-flag-stroke"> Add a white outline to the flag
+                    <input type="checkbox" name="adv-dark-triangles" /> Darken the triangles on the header
+                </span>
+                <span>
+                    <input type="checkbox" name="adv-dark-header" /> Use dark text on the header
                 </span>
             </div>
         </article>

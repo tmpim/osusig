@@ -148,6 +148,7 @@ input[type=text] {
     display: inline-block;
     margin: 0 auto;
     transition: 225ms all ease;
+    background: #fff;
 
     &:active, &:focus {
         border: 1px solid #B17;
@@ -176,6 +177,9 @@ a.button {
     display: inline-block;
     margin: 0 auto;
     transition: 225ms all ease;
+    cursor: pointer;
+    outline: none;
+    border: none;
 
     &:hover {
         background-color: #e39;

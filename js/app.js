@@ -11,7 +11,7 @@ $(function() {
 
             var url = "sig.php?";
 
-            url += "colour=" + colour;
+            url += "colour=" + colour.replace('#', "%23");
             url += "&uname=" + encodeURIComponent(($("input[name=uname]").val().replace(" ", "%20") || "Lemmmy"));
             url += "&mode=" + mode;
             url += (ppmode >= 0 ? "&pp=" + ppmode : "");
@@ -19,8 +19,12 @@ $(function() {
             url += ($("input[name=country-rank]").prop('checked') ? "&countryrank" : "");
 
             url += ($("input[name=adv-av-margin]").prop('checked') ? "&removeavmargin" : "");
+
             url += ($("input[name=adv-flag-shadow]").prop('checked') ? "&flagshadow" : "");
             url += ($("input[name=adv-flag-stroke]").prop('checked') ? "&flagstroke" : "");
+
+            url += ($("input[name=adv-dark-header]").prop('checked') ? "&darkheader" : "");
+            url += ($("input[name=adv-dark-triangles]").prop('checked') ? "&darktriangles" : "");
 
             var fullurl = "http://lemmmy.pw/osusig/" + url;
 
@@ -53,11 +57,30 @@ $(function() {
             reloadSig();
             this.select();
         }
-    });
+    }).focus();
 
     $("#out").click(function() {
         this.select();
     });
+
+    $("#hex-picker").spectrum({
+        color: $(".colours li.selected").css("background-color"),
+        showInput: true,
+        preferredFormat: "hex",
+        flat: true,
+        chooseText: "",
+        cancelText: "",
+        change: function(clr) {
+            $("#colour-hex").css("background-color", clr.toHexString());
+            colour = clr.toHexString();
+        },
+        move: function(clr) {
+            $("#colour-hex").css("background-color", clr.toHexString());
+            colour = clr.toHexString();
+        },
+    });
+
+    $($("#hex-picker").spectrum("container")).hide();
 
     $(".colours li").each(function() {
         $(this).click(function() {
@@ -67,6 +90,14 @@ $(function() {
             $(this).addClass("selected");
 
             colour = $(this).attr('id').replace("colour-", "");
+
+            if ($(this).attr('id') == 'colour-hex') {
+                $($("#hex-picker").spectrum("container")).slideDown();
+            } else {
+                $("#colour-hex").css("background-color", $(this).css("background-color"));
+                $("#hex-picker").spectrum("set", $(this).css("background-color"));
+                $($("#hex-picker").spectrum("container")).slideUp();
+            }
         });
     });
 
@@ -99,6 +130,4 @@ $(function() {
             ppmode = $(this).attr('id').replace("ppmode-", "");
         });
     });
-
-    $("#uname").focus();
 });
