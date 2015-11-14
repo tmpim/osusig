@@ -58,26 +58,28 @@ class ComponentAvatar extends Component
 		$avatar = new Imagick();
 		$cachedPicture = $this->mc->get("osusigv3_avatar_" . strtolower($user['user_id']));
 
-		if (!$cachedPicture) {
+		if (!isset($cachedPicture) || !$cachedPicture) {
 			$avatarBlob = @file_get_contents($avatarURL);
 
 			if ($avatarBlob === false) {
-				return null;
+				$avatar->newImage(128, 128, new ImagickPixel("#f8f8f8"));
+				$avatar->setImageFormat('png');
 			}
 
 			$matches = array();
 			preg_match('#HTTP/\d+\.\d+ (\d+)#', $http_response_header[0], $matches);
 
 			if ($matches[1] == 200) {
-				$avatar->readImageBlob($avatarBlob);;
+				$avatar->readImageBlob($avatarBlob);
 				$avatar->setImageFormat('png');
-
-				$this->mc->set("osusigv3_avatar_" . strtolower($user['user_id']), base64_encode($avatar->getImageBlob()), 43200);
-
-				return $avatar;
 			} else {
-				return null;
+				$avatar->newImage(128, 128, new ImagickPixel("#f8f8f8"));
+				$avatar->setImageFormat('png');
 			}
+
+			$this->mc->set("osusigv3_avatar_" . strtolower($user['user_id']), base64_encode($avatar->getImageBlob()), 43200);
+
+			return $avatar;
 		} else {
 			$decodedPicture = base64_decode($cachedPicture);
 			$avatar->readImageBlob($decodedPicture);
