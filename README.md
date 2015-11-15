@@ -36,7 +36,6 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 | -------- | -------- | ----------- |:-----:|
 | `green`  | `Lemmmy` | unspecified | ![](http://lemmmy.pw/osusig/sig.php?colour=green&uname=Lemmmy) |
 | `pink`   | `peppy`  | `1` | ![](http://lemmmy.pw/osusig/sig.php?colour=pink&uname=peppy&mode=1) |
-|
 | `hexFFAA00`| `hvick225`  | `0` | ![](http://lemmmy.pw/osusig/sig.php?colour=hexFFAA00&uname=hvick225&mode=0) |
 
 _Note:_ `hex` is a workaround for osu!'s gocamo server
