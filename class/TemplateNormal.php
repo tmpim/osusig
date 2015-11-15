@@ -192,7 +192,7 @@ class TemplateNormal extends Template
 		}
 
 		// I don't know either.
-		$this->extraWidth = OsuSignature::SIG_MARGIN * 2 + 1 - ($isCountryRank ? 2 : 0);
+		$this->extraWidth = OsuSignature::SIG_MARGIN * 2 + 1;
 		$this->extraHeight = $removeAvatarMargin ? 1 : 3;
 	}
 }
