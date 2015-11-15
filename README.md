@@ -28,6 +28,8 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 * `countryrank` - Shows your country rank (experimental)
 * `darkheader` - Darkens the text in the header
 * `darktriangles` - Darkens the triangles
+* `opaqueavatar` - Adds a white background behind the avatar
+* `avatarrounding` - Sets a custom rounding for the avatar - must be a numeric value
 
 
 ## Examples

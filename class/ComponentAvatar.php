@@ -72,6 +72,15 @@ class ComponentAvatar extends Component
 			if ($matches[1] == 200) {
 				$avatar->readImageBlob($avatarBlob);
 				$avatar->setImageFormat('png');
+
+				if (isset($_GET['opaqueavatar'])) {
+					$avatarTemp = new Imagick();
+					$avatarTemp->newImage($avatar->getImageWidth(), $avatar->getImageHeight(), new ImagickPixel('#ffffff'));
+					$avatarTemp->setImageFormat('png');
+
+					$avatarTemp->compositeImage($avatar, Imagick::COMPOSITE_DEFAULT, 0, 0);
+					$avatar = $avatarTemp;
+				}
 			} else {
 				$avatar->newImage(128, 128, new ImagickPixel("#f8f8f8"));
 				$avatar->setImageFormat('png');
@@ -103,6 +112,8 @@ class ComponentAvatar extends Component
 				1
 			);
 
+			$avatarRounding = isset($_GET['avatarrounding']) ? max((int)$_GET['avatarrounding'], 0) : OsuSignature::SIG_ROUNDING;
+
 			$avatar->setImageAlphaChannel(Imagick::ALPHACHANNEL_SET);
 
 			$roundImage = new Imagick();
@@ -115,8 +126,8 @@ class ComponentAvatar extends Component
 				0,
 				$this->getWidth() - 1,
 				$this->getHeight() - 1,
-				OsuSignature::SIG_ROUNDING,
-				OsuSignature::SIG_ROUNDING
+				$avatarRounding,
+				$avatarRounding
 			);
 
 			$roundImage->drawImage($roundMask);

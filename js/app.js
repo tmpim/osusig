@@ -13,7 +13,7 @@ $(function() {
 
             url += "colour=" + colour.replace('#', "hex");
             url += "&uname=" + encodeURIComponent(($("input[name=uname]").val().replace(" ", "%20") || "Lemmmy"));
-            url += "&mode=" + mode;
+            if(mode > 0) url += "&mode=" + mode;
             url += (ppmode >= 0 ? "&pp=" + ppmode : "");
 
             url += ($("input[name=country-rank]").prop('checked') ? "&countryrank" : "");
@@ -25,6 +25,9 @@ $(function() {
 
             url += ($("input[name=adv-dark-header]").prop('checked') ? "&darkheader" : "");
             url += ($("input[name=adv-dark-triangles]").prop('checked') ? "&darktriangles" : "");
+
+            url += ($("input[name=adv-opaque-avatar]").prop('checked') ? "&opaqueavatar" : "");
+            url += ($("input[name=adv-avatar-rounding]").prop('checked') ? "&avatarrounding=" + $("input[name=adv-avatar-rounding-num]").val() : "");
 
             var fullurl = "http://lemmmy.pw/osusig/" + url;
 
@@ -129,5 +132,9 @@ $(function() {
 
             ppmode = $(this).attr('id').replace("ppmode-", "");
         });
+    });
+
+    $("input[name=adv-avatar-rounding]").change(function() {
+        $("input[name=adv-avatar-rounding-num]").prop('disabled', !$(this).is(":checked"));
     });
 });

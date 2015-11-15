@@ -138,7 +138,7 @@ label {
     margin-bottom: 8px;
 }
 
-input[type=text] {
+input[type=text], input[type=number] {
     outline: none !important;
     border: 1px solid transparent;
     border-radius: 2px;
@@ -153,6 +153,11 @@ input[type=text] {
     &:active, &:focus {
         border: 1px solid #B17;
         box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    &:disabled {
+        background: #eee;
+        border: 1px solid transparent !important;
     }
 }
 
@@ -234,6 +239,17 @@ a.button {
 
     span {
         display: block;
+        margin-bottom: 8px;
+
+        input {
+            display: inline-block;
+
+            &.smallnumber {
+                margin-left: 8px;
+                padding: 4px 6px;
+                width: 80px;
+            }
+        }
     }
 }
 
