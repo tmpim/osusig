@@ -23,6 +23,11 @@ class PredefinedColours
 		'black' => '#000000'
 	);
 
+	private static function startsWith($haystack, $needle) {
+		// search backwards starting from haystack length characters from the end
+		return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+	}
+
 	/**
 	 * Gets whether or not a colour is named and predefined
 	 *
@@ -33,8 +38,14 @@ class PredefinedColours
 	public static function getPredefinedColour($colourName) {
 		$colourName = strtolower($colourName);
 
-		return in_array($colourName, array_keys(PredefinedColours::$predefinedColours)) ?
+		$c = in_array($colourName, array_keys(PredefinedColours::$predefinedColours)) ?
 			PredefinedColours::$predefinedColours[$colourName] :
 			$colourName;
+
+		if (self::startsWith($c, 'hex')) {
+			$c = preg_replace('/hex/', '#', $c, 1);
+		}
+
+		return $c;
 	}
 }
