@@ -52,6 +52,8 @@ class TemplateNormal extends Template
 		$playcount = $signature->getUser()['playcount'];
 		$level = $signature->getUser()['level'];
 
+		$headerTextColour = $darkHeader ? '#555555' : '#FFFFFF';
+
 		$avatar = new ComponentAvatar(
 			$signature,
 			$signature::SIG_MARGIN + ($removeAvatarMargin ? 4 : 6),
@@ -66,7 +68,7 @@ class TemplateNormal extends Template
 			32,
 			'#' . number_format($userRank) . ($isCountryRank ? " (" . '#' . number_format($userCountryRank) . ')' : ""),
 			ComponentLabel::FONT_REGULAR,
-			$darkHeader ? '#555555' : '#FFFFFF',
+			$headerTextColour,
 			$isCountryRank ? 12 : 14,
 			\Imagick::ALIGN_RIGHT,
 			0
@@ -78,7 +80,7 @@ class TemplateNormal extends Template
 			$isCountryRank ? 18 : 31,
 			json_decode('"\\ue00' . $iconmode . '"'),
 			ComponentLabel::FONT_OSU,
-			$darkHeader ? '#555555' : '#FFFFFF',
+			$headerTextColour,
 			$isCountryRank ? 12 : 14,
 			\Imagick::ALIGN_LEFT,
 			$isCountryRank ? 12 : 14
@@ -111,7 +113,7 @@ class TemplateNormal extends Template
 			32,
 			$username,
 			ComponentLabel::FONT_MEDIUM,
-			$darkHeader ? '#555555' : '#FFFFFF',
+			$headerTextColour,
 			$nameFontSize,
 			\Imagick::ALIGN_LEFT,
 			-2
@@ -182,7 +184,7 @@ class TemplateNormal extends Template
 				18,
 				number_format(floor($ppText)) . 'pp',
 				ComponentLabel::FONT_REGULAR,
-				'#FFFFFF',
+				$headerTextColour,
 				10,
 				\Imagick::ALIGN_RIGHT,
 				-2
