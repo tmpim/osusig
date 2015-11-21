@@ -16,20 +16,23 @@ class TemplateNormal extends Template
 
 		$this->setCard(new CardRegular());
 
+		$user = $signature->getUser();
+
 		$isCountryRank = isset($_GET['countryrank']);
 		$removeAvatarMargin = isset($_GET['removeavmargin']);
 		$showPP = isset($_GET['pp']);
 		$pp = $showPP ? $_GET['pp'] : -1;
 		$darkHeader = isset($_GET['darkheader']);
+		$showRankedScore = isset($_GET['rankedscore']);
 
 		if ($showPP && ($pp < 0 || $pp > 3)) {
 			$errorImage = new ErrorImage();
 			$errorImage->generate("Invalid parameter", "Parameter 'pp' has an\ninvalid value");
 		}
 
-		$userRank = $signature->getUser()['pp_rank'];
+		$userRank = $user['pp_rank'];
 		$userRank = $userRank ? $userRank : '?';
-		$userCountryRank = $signature->getUser()['pp_country_rank'];
+		$userCountryRank = $user['pp_country_rank'];
 		$userCountryRank = $userCountryRank ? $userCountryRank : '?';
 		$mode = isset($_GET['mode']) ? $_GET['mode'] : 'osu';
 		$iconmode = 0;
@@ -51,11 +54,11 @@ class TemplateNormal extends Template
 				$iconmode = 1;
 				break;
 		}
-		$username = $signature->getUser()['username'];
-		$ppText = $signature->getUser()['pp_raw'];
-		$accuracy = $signature->getUser()['accuracy'];
-		$playcount = $signature->getUser()['playcount'];
-		$level = $signature->getUser()['level'];
+		$username = $user['username'];
+		$ppText = $user['pp_raw'];
+		$accuracy = $user['accuracy'];
+		$playcount = $user['playcount'];
+		$level = $user['level'];
 
 		$headerTextColour = $darkHeader ? '#555555' : '#FFFFFF';
 
@@ -139,7 +142,7 @@ class TemplateNormal extends Template
 			$signature,
 			91,
 			73,
-			"Play Count",
+			$showRankedScore ? "Ranked Score" : "Play Count",
 			ComponentLabel::FONT_REGULAR,
 			'#555555',
 			14,
@@ -164,7 +167,7 @@ class TemplateNormal extends Template
 			$signature,
 			325,
 			73,
-			$playCountText,
+			$showRankedScore ? Utils::largeNumberFormat($user['ranked_score']) : $playCountText,
 			ComponentLabel::FONT_BOLD,
 			'#555555',
 			14,

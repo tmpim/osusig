@@ -109,6 +109,9 @@
                     <input type="checkbox" name="adv-avatar-rounding" /> Set a custom rounding for the avatar
                     <input type="number" name="adv-avatar-rounding-num" min="0" value="4" disabled class="smallnumber"/>
                 </span>
+                <span>
+                    <input type="checkbox" name="adv-ranked-score" /> Show your ranked score
+                </span>
             </div>
         </article>
         <?php include_once('/var/www/req/.analytics.php'); ?>
