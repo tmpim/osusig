@@ -11,6 +11,8 @@ class TemplateNormal extends Template
 	public function __construct(OsuSignature $signature) {
 		parent::__construct($signature);
 
+		$this->setCard(new CardRegular());
+
 		$isCountryRank = isset($_GET['countryrank']);
 		$removeAvatarMargin = isset($_GET['removeavmargin']);
 		$showPP = isset($_GET['pp']);
@@ -56,8 +58,8 @@ class TemplateNormal extends Template
 
 		$avatar = new ComponentAvatar(
 			$signature,
-			$signature::SIG_MARGIN + ($removeAvatarMargin ? 4 : 6),
-			$signature::SIG_MARGIN + ($removeAvatarMargin ? 4 : 6),
+			CardRegular::SIG_MARGIN + ($removeAvatarMargin ? 4 : 6),
+			CardRegular::SIG_MARGIN + ($removeAvatarMargin ? 4 : 6),
 			$removeAvatarMargin ? 80 : 76,
 			$removeAvatarMargin ? 80 : 76
 		);
@@ -194,7 +196,23 @@ class TemplateNormal extends Template
 		}
 
 		// I don't know either.
-		$this->extraWidth = OsuSignature::SIG_MARGIN * 2 + 1;
+		$this->extraWidth = CardRegular::SIG_MARGIN * 2 + 1;
 		$this->extraHeight = $removeAvatarMargin ? 1 : 3;
+	}
+
+	/**
+	 * @return int The width to be added to the image.
+	 */
+	public function getImageMarginWidth()
+	{
+		return CardRegular::SIG_MARGIN * 2;
+	}
+
+	/**
+	 * @return int The height to be added to the image.
+	 */
+	public function getImageMarginHeight()
+	{
+		return CardRegular::SIG_MARGIN * 2;
 	}
 }

@@ -19,6 +19,13 @@ class Template
 	private $signature;
 
 	/**
+	 * The Card used to draw the background of the signature.
+	 *
+	 * @var Card
+	 */
+	private $card;
+
+	/**
 	 * Extra padding to be added to the signature.
 	 *
 	 * @var int
@@ -53,17 +60,38 @@ class Template
 	/**
 	 * @return Signature The signature that this is a template of.
 	 */
-	public function getSignature()
-	{
+	public function getSignature() {
 		return $this->signature;
 	}
 
 	/**
-	 * Overridable method to determine whether this template should draw the triangle strip.
-	 * @return bool Should the triangle strip be drawn for this template or not?
+	 * @return Card The background card of this signature template.
 	 */
-	public function hasTriangleStrip() {
-		return true;
+	public function getCard() {
+		return $this->card;
+	}
+
+	/**
+	 * Sets the background card of this signature template.
+	 *
+	 * @param Card $card The card to set to.
+	 */
+	public function setCard($card) {
+		$this->card = $card;
+	}
+
+	/**
+	 * @return int The width to be added to the image.
+	 */
+	public function getImageMarginWidth() {
+		return 0;
+	}
+
+	/**
+	 * @return int The height to be added to the image.
+	 */
+	public function getImageMarginHeight() {
+		return 0;
 	}
 
 	/**

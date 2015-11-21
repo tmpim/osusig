@@ -4,6 +4,9 @@
  */
 class Signature
 {
+	/**
+	 * @var Imagick The Imagick object for the canvas.
+	 */
 	protected $canvas;
 
 	/**
@@ -20,7 +23,7 @@ class Signature
 	/**
 	 * Draws the background colour for the signature
 	 *
-	 * @param string $hexColour Hexadecimal colour value
+	 * @param $hexColour string Hexadecimal colour value
 	 */
 	protected function drawBackground($hexColour) {
 		$background = new ImagickDraw();

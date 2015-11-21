@@ -112,7 +112,7 @@ class ComponentAvatar extends Component
 				1
 			);
 
-			$avatarRounding = isset($_GET['avatarrounding']) ? max((int)$_GET['avatarrounding'], 0) : OsuSignature::SIG_ROUNDING;
+			$avatarRounding = isset($_GET['avatarrounding']) ? max((int)$_GET['avatarrounding'], 0) : CardRegular::SIG_ROUNDING;
 
 			$avatar->setImageAlphaChannel(Imagick::ALPHACHANNEL_SET);
 
