@@ -90,7 +90,7 @@ class ComponentAvatar extends Component
 		$avatar = new Imagick();
 		$cachedPicture = $this->mc->get("osusigv3_avatar_" . strtolower($user['user_id']));
 
-		if (true) {
+		if (!isset($cachedPicture) || !$cachedPicture) {
 			$avatarBlob = @file_get_contents($avatarURL);
 
 			if ($avatarBlob === false) {
@@ -137,12 +137,23 @@ class ComponentAvatar extends Component
 		$avatar = $this->getAvatar($signature->getUser());
 
 		if ($avatar) {
-			$avatar->resizeImage(
+			$fitByWidth = (($this->getWidth()/$avatar->getImageWidth())<($this->getHeight()/$avatar->getImageHeight())) ?true:false;
+
+			if($fitByWidth){
+				$avatar->thumbnailImage($this->getWidth(), 0, false);
+			}else{
+				$avatar->thumbnailImage(0, $this->getHeight(), false);
+			}
+
+			$avatarXOffset = ($this->getWidth() - $avatar->getImageWidth()) / 2;
+			$avatarYOffset = ($this->getHeight() - $avatar->getImageHeight()) / 2;
+
+			/*$avatar->resizeImage(
 				$this->getWidth(),
-				$this->getHeight(),
-				Imagick::FILTER_CATROM,
+				$this->get Height(),
 				1
-			);
+				Imagick::FILTER_CATROM
+			);*/
 
 			$avatarRounding = isset($_GET['avatarrounding']) ? max((int)$_GET['avatarrounding'], 0) : $this->rounding;
 
@@ -156,8 +167,8 @@ class ComponentAvatar extends Component
 			$roundMask->roundRectangle(
 				0,
 				0,
-				$this->getWidth() - 1,
-				$this->getHeight() - 1,
+				$avatar->getImageWidth() - 1,
+				$avatar->getImageHeight() - 1,
 				$avatarRounding,
 				$avatarRounding
 			);
@@ -176,8 +187,8 @@ class ComponentAvatar extends Component
 			$signature->getCanvas()->compositeImage(
 				$avatar,
 				Imagick::COMPOSITE_DEFAULT,
-				$this->x,
-				$this->y
+				$this->x + $avatarXOffset,
+				$this->y + $avatarYOffset
 			);
 		}
 	}
