@@ -84,9 +84,10 @@ img/tris.png
 The following files are licensed under AGPL-v3 and are from [this](https://github.com/ppy/osu-web) repository:
 ```
 fonts/osu!font.ttf
-flags/*
 img/ctb.png
 img/mania.png
 img/taiko.png
 img/osu.png
 ```
+
+The flags in `flags/*` are created by Muharrem Şenyıl and can be found on his [Dribbble](https://dribbble.com/shots/1211759-Free-195-Flat-Flags).
