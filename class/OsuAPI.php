@@ -34,8 +34,7 @@ class OsuAPI
 	{
 		$this->apiKey = $apiKey;
 
-		$this->mc = new Memcached();
-		$this->mc->addServer("localhost", 11211);
+		$this->mc = Utils::getMemcache();
 	}
 
 	/**

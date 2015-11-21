@@ -14,9 +14,9 @@ class TemplateNormal extends Template
 	public function __construct(OsuSignature $signature) {
 		parent::__construct($signature);
 
-		$this->setCard(new CardRegular());
-
 		$user = $signature->getUser();
+
+		$this->setCard(new CardRegular($user));
 
 		$isCountryRank = isset($_GET['countryrank']);
 		$removeAvatarMargin = isset($_GET['removeavmargin']);
@@ -199,6 +199,20 @@ class TemplateNormal extends Template
 			);
 
 			$this->addComponent($ppLabel);
+		}
+
+		$onlineIndicator = isset($_GET['onlineindicator']) ? $_GET['onlineindicator'] : false;
+		$online = $onlineIndicator == 2 || $onlineIndicator == 3 ? Utils::isUserOnline($user['username']) : false;
+
+		if ($online) {
+			$onlineIndicatorImage = new ComponentImage(
+				$signature,
+				$avatar->x + $avatar->getWidth() - 17,
+				$avatar->y + $avatar->getHeight() - 17,
+				ComponentImage::IMG_DIRECTORY . 'online_indicator.png'
+			);
+
+			$this->addComponent($onlineIndicatorImage);
 		}
 
 		// I don't know either.

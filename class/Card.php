@@ -8,6 +8,13 @@
 class Card
 {
 	/**
+	 * The user of the signature.
+	 *
+	 * @var array
+	 */
+	protected $user;
+
+	/**
 	 * @var Imagick The Imagick object for the canvas.
 	 */
 	protected $canvas;
@@ -27,6 +34,10 @@ class Card
 	 * @var int
 	 */
 	protected $baseHeight;
+
+	public function __construct($user) {
+		$this->user = $user;
+	}
 
 	/**
 	 * Draw the background to the canvas.

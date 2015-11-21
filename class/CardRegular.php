@@ -154,16 +154,21 @@ class CardRegular extends Card
 	/**
 	 * Draws the shadow of the card
 	 */
-	public function drawShadow() {
+	public function drawShadow($hexColour) {
+		$onlineIndicator = isset($_GET['onlineindicator']) ? $_GET['onlineindicator'] : false;
+		$online = $onlineIndicator == 1 || $onlineIndicator == 3 ? Utils::isUserOnline($this->user['username']) : false;
+
+		$colour = $online ? new ImagickPixel($hexColour) : new ImagickPixel('black');
+
 		$shadow = new Imagick();
 		$shadow->newImage(
 			$this->canvas->getImageWidth(),
 			$this->canvas->getImageHeight(),
 			new ImagickPixel('transparent'));
-		$shadow->setImageBackgroundColor(new ImagickPixel('black'));
+		$shadow->setImageBackgroundColor($colour);
 
 		$shadowArea = new ImagickDraw();
-		$shadowArea->setFillColor(new ImagickPixel('black'));
+		$shadowArea->setFillColor($colour);
 		$shadowArea->roundRectangle(
 			0,
 			0,
@@ -174,7 +179,7 @@ class CardRegular extends Card
 		);
 
 		$shadow->drawImage($shadowArea);
-		$shadow->shadowImage(15, 1.5, 0, 0);
+		$shadow->shadowImage($online ? 40 : 15, 1.5, 0, 0);
 
 		$this->canvas->compositeImage($shadow, Imagick::COMPOSITE_DEFAULT, 0, 1);
 	}
@@ -248,7 +253,7 @@ class CardRegular extends Card
 	public function draw($canvas, $hexColour, $template, $baseWidth, $baseHeight) {
 		parent::draw($canvas, $hexColour, $template, $baseWidth, $baseHeight);
 
-		$this->drawShadow();
+		$this->drawShadow($hexColour);
 		$this->drawBackground($hexColour);
 		$this->drawPlainArea();
 		$this->drawTriangleStrip($hexColour);

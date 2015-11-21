@@ -97,6 +97,15 @@
                 <span>
                     <input type="checkbox" name="adv-opaque-avatar" /> Add a background behind the avatar
                 </span>
+	            <span>
+		            Show an online indicator (slows down signature)
+		            <select>
+			            <option value="0">Don't show</option>
+			            <option value="1">Glow around the signature</option>
+			            <option value="2">Green dot in avatar</option>
+			            <option value="3">Glow &amp; dot</option>
+		            </select>
+	            </span>
             </div>
             <div class="twocol-col">
                 <span>

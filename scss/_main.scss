@@ -6,8 +6,8 @@ html {
 
 body {
     color: #555555;
-    max-width: 800px;
-    width: 80vw;
+    max-width: 960px;
+    width: 90vw;
     margin: 0 auto;
     font-family: 'Exo 2', sans-serif;
 }
@@ -138,7 +138,7 @@ label {
     margin-bottom: 8px;
 }
 
-input[type=text], input[type=number] {
+input[type=text], input[type=number], select {
     outline: none !important;
     border: 1px solid transparent;
     border-radius: 2px;
@@ -239,16 +239,20 @@ a.button {
 
     span {
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
 
-        input {
+        input, select {
             display: inline-block;
 
             &.smallnumber {
-                margin-left: 8px;
+                margin: 0 16px 0 0;
                 padding: 4px 6px;
                 width: 80px;
             }
+        }
+
+        select {
+            margin: 8px 0;
         }
     }
 }
