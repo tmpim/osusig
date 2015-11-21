@@ -1,5 +1,7 @@
 <?php
 /**
+ * The base signature object, initialising the canvas and outputting it.
+ *
  * @author Lemmmy
  */
 class Signature
@@ -21,7 +23,8 @@ class Signature
 	}
 
 	/**
-	 * Draws the background colour for the signature
+	 * Draws the background colour for the signature.
+	 * Note that this has no relation to {@link Card}s.
 	 *
 	 * @param $hexColour string Hexadecimal colour value
 	 */

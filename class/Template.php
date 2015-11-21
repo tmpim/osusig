@@ -1,6 +1,11 @@
 <?php
 /**
+ * A template for signatures. This predefines the background {@link Card} and {@link Component}s.
+ *
  * @author Lemmmy
+ * @see Card
+ * @see Component
+ * @see TemplateNormal
  */
 class Template
 {

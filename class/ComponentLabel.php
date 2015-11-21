@@ -1,6 +1,9 @@
 <?php
 /**
+ * The label component, used to display text.
+ *
  * @author Lemmmy
+ * @see Component
  */
 class ComponentLabel extends Component
 {

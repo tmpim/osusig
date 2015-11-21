@@ -1,5 +1,11 @@
 <?php
 /**
+ * An element in the signature. These are used for things like labels, avatars etc. A signature's width is calculated
+ * by the size of its elements.
+ *
+ * If {@link $usesSpace} is set to false, the element's sizes will not matter as they are ignored by width and height
+ * calculations.
+ *
  * @author Lemmmy
  */
 class Component

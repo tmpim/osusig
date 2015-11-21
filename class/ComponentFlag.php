@@ -1,6 +1,12 @@
 <?php
 /**
+ * The flag component. Looks for a country flag in {@link FLAGS_DIRECTORY} based on the user's country code.
+ *
+ * `&flagshadow` can be used globally and adds a 3px 50% opacity shadow to the flag.
+ * `&flagstroke` can be used globally and adds a 1px white rounded stroke with 93.3% opacity around the flag.
+ *
  * @author Lemmmy
+ * @see Component
  */
 class ComponentFlag extends Component
 {
@@ -28,6 +34,13 @@ class ComponentFlag extends Component
 	 */
 	private $mc;
 
+	/**
+	 * @param OsuSignature $signature The base signature
+	 * @param int $x The X position of this flag
+	 * @param int $y The Y position of this flag
+	 * @param int $width The width of this flag
+	 * @param int $height The height of this flag
+	 */
 	public function __construct(OsuSignature $signature, $x = 0, $y = 0, $width = 18, $height = 12) {
 		parent::__construct($signature, $x, $y);
 

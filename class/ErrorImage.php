@@ -1,5 +1,7 @@
 <?php
 /**
+ * Generates an error image to die with.
+ *
  * @author Lemmmy
  */
 class ErrorImage
@@ -53,8 +55,8 @@ class ErrorImage
 
 		header('Content-Type: image/'.$this->canvas->getImageFormat());
 
-		header("Cache-Control: max-age=1800");
-		header("Expires: ".gmdate("D, d M Y H:i:s", time()+1800)." GMT");
+		header("Cache-Control: max-age=60");
+		header("Expires: ".gmdate("D, d M Y H:i:s", time()+60)." GMT");
 
 		die($this->canvas);
 	}

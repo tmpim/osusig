@@ -1,6 +1,9 @@
 <?php
 /**
+ * The background card of the original osu!nextsig design.
+ *
  * @author Lemmmy
+ * @see Card
  */
 class CardRegular extends Card
 {

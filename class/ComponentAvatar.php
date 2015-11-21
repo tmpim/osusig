@@ -1,6 +1,14 @@
 <?php
 /**
+ * The avatar component. This fetches the avatar from {@link AVATAR_URL} using the user's UID.
+ *
+ * If the user does not have an avatar, it will default to a blank #f8f8f8 square.
+ *
+ * `&opaqueavatar` can be globally set to draw a white background behind the avatar if the avatar is transparent.
+ * `&avatarrounding` can be globally set to override the rounding set by the template.
+ *
  * @author Lemmmy
+ * @see Component
  */
 class ComponentAvatar extends Component
 {
@@ -21,17 +29,41 @@ class ComponentAvatar extends Component
 	private $height;
 
 	/**
+	 * The rounding of this avatar
+	 *
+	 * @var int
+	 */
+	private $rounding;
+
+	/**
 	 * The memcache object
 	 *
 	 * @var Memcached
 	 */
 	private $mc;
 
-	public function __construct(OsuSignature $signature, $x = 0, $y = 0, $width = 78, $height = 78) {
+	/**
+	 * @param OsuSignature $signature The base signature
+	 * @param int $x The X position of this avatar
+	 * @param int $y The Y position of this avatar
+	 * @param int $width The width of this avatar
+	 * @param int $height The height of this avatar
+	 * @param int $rounding The rounding of this avatar (can be overriden by the user with `&avatarrounding`)
+	 */
+	public function __construct(
+		OsuSignature $signature,
+		$x = 0,
+		$y = 0,
+		$width = 78,
+		$height = 78,
+		$rounding = CardRegular::SIG_ROUNDING) {
+
 		parent::__construct($signature, $x, $y);
 
 		$this->width = $width;
 		$this->height = $height;
+
+		$this->rounding = $rounding;
 
 		$this->mc = new Memcached();
 		$this->mc->addServer("localhost", 11211);
@@ -112,7 +144,7 @@ class ComponentAvatar extends Component
 				1
 			);
 
-			$avatarRounding = isset($_GET['avatarrounding']) ? max((int)$_GET['avatarrounding'], 0) : CardRegular::SIG_ROUNDING;
+			$avatarRounding = isset($_GET['avatarrounding']) ? max((int)$_GET['avatarrounding'], 0) : $this->rounding;
 
 			$avatar->setImageAlphaChannel(Imagick::ALPHACHANNEL_SET);
 

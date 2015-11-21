@@ -1,5 +1,7 @@
 <?php
 /**
+ * The osu! signature object.
+ *
  * @author Lemmmy
  */
 class OsuSignature extends Signature

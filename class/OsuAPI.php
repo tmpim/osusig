@@ -1,6 +1,7 @@
 <?php
-
 /**
+ * A class to access the osu! API. It queries the API at {@link API_URL}.
+ *
  * @author Lemmmy
  */
 class OsuAPI

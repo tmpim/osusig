@@ -1,5 +1,8 @@
 <?php
 /**
+ * The background of each template - these are reusable. These are instantiated in a Template's constructor
+ * and are drawn prior to the components.
+ *
  * @author Lemmmy
  */
 class Card

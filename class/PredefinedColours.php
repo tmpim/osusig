@@ -1,6 +1,9 @@
 <?php
 /**
+ * An array of named colours for backwards compatibility.
+ *
  * @author Lemmmy
+ * @see $predefinedColours
  */
 class PredefinedColours
 {
