@@ -2,7 +2,7 @@
 /**
  * The original osu!nextsig signature card. This is the design that followed through from v1 to v3. This is a pretty
  * messy class.
- * 
+ *
  * @author Lemmmy
  */
 class TemplateNormal extends Template

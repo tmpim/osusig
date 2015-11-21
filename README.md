@@ -1,6 +1,8 @@
 # osu!next Signature Generator v3
 This is a signature generator written in PHP for osu!next style signatures. The design is based on flyte's design. Live version with the generator can be found [here](http://lemmmy.pw/osusig).
 
+_Relatively_ up-to-date documentation can be found [at my site here](http://lemmmy.pw/osusig/docs).
+
 ## Usage
 The generator itself is in `sig.php`. It accepts the following parameters:
 
