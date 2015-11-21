@@ -99,7 +99,7 @@
                 </span>
 	            <span>
 		            Show an online indicator (slows down signature)
-		            <select>
+		            <select name="adv-online-indicator">
 			            <option value="0">Don't show</option>
 			            <option value="1">Glow around the signature</option>
 			            <option value="2">Green triangle in avatar</option>

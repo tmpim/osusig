@@ -27,9 +27,11 @@ $(function() {
             url += ($("input[name=adv-dark-triangles]").prop('checked') ? "&darktriangles" : "");
 
             url += ($("input[name=adv-opaque-avatar]").prop('checked') ? "&opaqueavatar" : "");
-            url += ($("input[name=adv-avatar-rounding]").prop('checked') ? "&avatarrounding=" + $("input[name=adv-avatar-rounding-num]").val() : "")
+            url += ($("input[name=adv-avatar-rounding]").prop('checked') ? "&avatarrounding=" + $("input[name=adv-avatar-rounding-num]").val() : "");
 
             url += ($("input[name=adv-ranked-score]").prop('checked') ? "&rankedscore" : "");
+
+            url += ($("select[name=adv-online-indicator]").val() !== '0' ? "&onlineindicator=" + $("select[name=adv-online-indicator]").val() : "");
 
             var fullurl = "http://lemmmy.pw/osusig/" + url;
 
