@@ -4,7 +4,7 @@ This is a signature generator written in PHP for osu!next style signatures. The 
 _Relatively_ up-to-date documentation can be found [at my site here](http://lemmmy.pw/osusig/docs).
 
 ## Usage
-The generator itself is in `sig.php`. It accepts the following parameters:
+The generator itself is in `sig.php`. All templates accepts the following parameters:
 
 * `uname` - **required** The username of the user you want to generate a signature for
 * `colour` - The background and stroke colour of the signature. Valid values are any 6 digit hex value prepended by `hex` or `%23`, or:
@@ -23,6 +23,9 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 	| black | `#000000` |
 
 * `mode` - The gamemode you wish to view stats for. `0` is osu!standard, `1` is osu!taiko, `2` is osu!catch and `3` is osu!mania.
+
+TemplateNormal accepts the following:
+
 * `pp` - Where you want the pp to be displayed. Undefined does not show at all, `0` shows in place of the level, `1` shows next to the accuracy and `2` shows above the rank.
 * `removeavmargin` - If specified (no value required), there will not be a 3px margin between the card's stroke and the profile picture.
 * `flagshadow` - Adds a shadow to the flag
@@ -32,6 +35,7 @@ The generator itself is in `sig.php`. It accepts the following parameters:
 * `darktriangles` - Darkens the triangles
 * `opaqueavatar` - Adds a white background behind the avatar
 * `avatarrounding` - Sets a custom rounding for the avatar - must be a numeric value
+* `rankedscore` - Whether to show the ranked score in place of the Play Count or not
 
 
 ## Examples

@@ -110,7 +110,7 @@
                     <input type="number" name="adv-avatar-rounding-num" min="0" value="4" disabled class="smallnumber"/>
                 </span>
                 <span>
-                    <input type="checkbox" name="adv-ranked-score" /> Show your ranked score
+                    <input type="checkbox" name="adv-ranked-score" /> Show your ranked score (replaces playcount)
                 </span>
             </div>
         </article>
