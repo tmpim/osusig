@@ -102,6 +102,29 @@ class ComponentXPBar extends Component
 
 		$composite->drawImage($draw);
 
+		// Text draw & metrics
+
+		$textDraw = new ImagickDraw();
+		$textDraw->setFillColor(new ImagickPixel('#555555'));
+		$textDraw->setFontSize(12);
+		$textDraw->setFont(ComponentLabel::FONT_DIRECTORY . ComponentLabel::FONT_REGULAR);
+		$textDraw->setGravity(Imagick::GRAVITY_NORTHWEST);
+
+		$metrics = $composite->queryFontMetrics($textDraw, 'lv' . floor($level));
+
+		// Text white bg
+
+		$draw = new ImagickDraw();
+		$draw->setFillColor(new ImagickPixel('#ffffff'));
+
+		$draw->rectangle(
+			($this->getWidth() - $metrics['textWidth']) / 2 - 2,
+			0,
+			($this->getWidth() + $metrics['textWidth']) / 2 + 1,
+			$this->getHeight());
+
+		$composite->drawImage($draw);
+
 		// Rounding
 
 		$roundMask = new Imagick();
@@ -123,5 +146,14 @@ class ComponentXPBar extends Component
 		);
 
 		$signature->getCanvas()->compositeImage($composite, Imagick::COMPOSITE_DEFAULT, $this->x, $this->y);
+
+		// Level text
+
+		$signature->getCanvas()->annotateImage(
+			$textDraw,
+			$this->x + ($this->getWidth() - $metrics['textWidth']) / 2,
+			$this->y + ($this->getHeight() - $metrics['textHeight']) / 2 - 2,
+			0,
+			'lv' . floor($level));
 	}
 }
