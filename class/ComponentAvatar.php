@@ -87,7 +87,7 @@ class ComponentAvatar extends Component
 		$avatarURL = self::AVATAR_URL . $user['user_id'] . '_' . time() . '.png';
 
 		$avatar = new Imagick();
-		$cachedPicture = $this->mc->get("osusigv3_avatar_" . strtolower($user['user_id']));
+		$cachedPicture = $this->mc->get("osusigv3_avatar_" . $user['user_id']);
 
 		if (!isset($cachedPicture) || !$cachedPicture) {
 			$avatarBlob = @file_get_contents($avatarURL);
@@ -117,7 +117,7 @@ class ComponentAvatar extends Component
 				$avatar->setImageFormat('png');
 			}
 
-			$this->mc->set("osusigv3_avatar_" . strtolower($user['user_id']), base64_encode($avatar->getImageBlob()), 43200);
+			$this->mc->set("osusigv3_avatar_" . $user['user_id'], base64_encode($avatar->getImageBlob()), 43200);
 
 			return $avatar;
 		} else {
