@@ -38,7 +38,7 @@ class ComponentXPBar extends Component
 	 * @param OsuSignature $signature The base signature
 	 * @param int $x The X position of this xp bar
 	 * @param int $y The Y position of this xp bar
-	 * @param string $hexColour The colour of this xp bar
+	 * @param string $hexColour The colour of this xp bar. Empty will default to sig's colour.
 	 * @param int $width The width of this xp bar
 	 * @param int $height The height of this xp bar
 	 * @param int $rounding How much to round this xp bar
@@ -71,6 +71,10 @@ class ComponentXPBar extends Component
 	}
 
 	public function draw(OsuSignature $signature) {
+		if (empty($this->hexColour)) {
+			$this->hexColour = $signature->getHexColour();
+		}
+
 		$composite = new Imagick();
 		$composite->newPseudoImage($this->getWidth(), $this->getHeight(), "canvas:transparent");
 
@@ -97,7 +101,7 @@ class ComponentXPBar extends Component
 
 		$draw = new ImagickDraw();
 		$draw->setFillColor(new ImagickPixel('#ffffff'));
-		$draw->setFillOpacity(0.3);
+		$draw->setFillOpacity(0.35);
 		$draw->rectangle(($this->getWidth() * $xp) - $this->getHeight(), 0, $this->getWidth() * $xp, $this->getHeight());
 
 		$composite->drawImage($draw);

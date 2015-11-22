@@ -221,7 +221,7 @@ class TemplateNormal extends Template
 				$signature,
 				92,
 				79,
-				'#ffa200',
+				isset($_GET['xpbarhex']) ? '' : '#ffa200',
 				233,
 				4
 			);
