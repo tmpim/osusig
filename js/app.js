@@ -33,6 +33,9 @@ $(function() {
 
             url += ($("select[name=adv-online-indicator]").val() !== '0' ? "&onlineindicator=" + $("select[name=adv-online-indicator]").val() : "");
 
+            url += ($("input[name=adv-xp-bar]").prop('checked') ? "&xpbar" : "");
+            url += ($("input[name=adv-xp-bar-hex]").prop('checked') ? "&xpbarhex" : "");
+
             var fullurl = "http://lemmmy.pw/osusig/" + url;
 
             $("img.preview").remove();
@@ -140,5 +143,9 @@ $(function() {
 
     $("input[name=adv-avatar-rounding]").change(function() {
         $("input[name=adv-avatar-rounding-num]").prop('disabled', !$(this).is(":checked"));
+    });
+
+    $("input[name=adv-xp-bar]").change(function() {
+        $("input[name=adv-xp-bar-hex]").prop('disabled', !$(this).is(":checked"));
     });
 });

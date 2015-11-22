@@ -121,6 +121,12 @@
                 <span>
                     <input type="checkbox" name="adv-ranked-score" /> Show your ranked score (replaces playcount)
                 </span>
+                <span>
+                    <input type="checkbox" name="adv-xp-bar" /> Show an XP bar at the bottom
+	            </span>
+                <span>
+                    <input type="checkbox" name="adv-xp-bar-hex" /> Use signature colour for XP bar
+	            </span>
             </div>
         </article>
         <?php include_once('/var/www/req/.analytics.php'); ?>
