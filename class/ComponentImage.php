@@ -87,8 +87,7 @@ class ComponentImage extends Component
 		return $this->height;
 	}
 
-	public function draw(OsuSignature $signature)
-	{
+	public function draw(OsuSignature $signature) {
 		parent::draw($signature);
 
 		if ($this->width != -1 || $this->height != -1) {
