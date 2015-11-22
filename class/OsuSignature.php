@@ -37,6 +37,13 @@ class OsuSignature extends Signature
 	private $template;
 
 	/**
+	 * The hex colour of the signature.
+	 *
+	 * @var string
+	 */
+	private $hexColour;
+
+	/**
 	 * Creates a new osu! signature.
 	 *
 	 * @param array $user The user whom the signature will be the signature's subject
@@ -60,6 +67,14 @@ class OsuSignature extends Signature
 		return $this->user;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getHexColour()
+	{
+		return $this->hexColour;
+	}
+
 	public function generate($hexColour = "#bb1177") {
 		/*
 			The inner width and height of the signature card.
@@ -67,6 +82,8 @@ class OsuSignature extends Signature
 		*/
 		$this->baseWidth = $this->template->calculateBaseWidth();
 		$this->baseHeight = $this->template->calculateBaseHeight();
+
+		$this->hexColour = $hexColour;
 
 		$this->template->getCard()->draw($this->canvas, $hexColour, $this->template, $this->baseWidth, $this->baseHeight);
 		$this->template->drawComponents();
