@@ -50,7 +50,7 @@ class ComponentXPBar extends Component
 		$hexColour = "#ffa200",
 		$width = 0,
 		$height = 0,
-		$rounding = 3) {
+		$rounding = 1) {
 
 		parent::__construct($signature, $x, $y);
 
@@ -61,6 +61,7 @@ class ComponentXPBar extends Component
 
 		$this->hexColour = $hexColour;
 	}
+
 	public function getWidth() {
 		return $this->width;
 	}
@@ -70,6 +71,57 @@ class ComponentXPBar extends Component
 	}
 
 	public function draw(OsuSignature $signature) {
-		
+		$composite = new Imagick();
+		$composite->newPseudoImage($this->getWidth(), $this->getHeight(), "canvas:transparent");
+
+		// Background
+
+		$draw = new ImagickDraw();
+		$draw->setFillColor(new ImagickPixel("#555555"));
+		$draw->rectangle(0, 0, $this->getWidth(), $this->getHeight());
+
+		$composite->drawImage($draw);
+
+		// Main bar
+
+		$level = $signature->getUser()['level'];
+		$xp = $level - floor($level);
+
+		$draw = new ImagickDraw();
+		$draw->setFillColor(new ImagickPixel($this->hexColour));
+		$draw->rectangle(0, 0, $this->getWidth() * $xp, $this->getHeight());
+
+		$composite->drawImage($draw);
+
+		// Bar end glow
+
+		$draw = new ImagickDraw();
+		$draw->setFillColor(new ImagickPixel('#ffffff'));
+		$draw->setFillOpacity(0.3);
+		$draw->rectangle(($this->getWidth() * $xp) - $this->getHeight(), 0, $this->getWidth() * $xp, $this->getHeight());
+
+		$composite->drawImage($draw);
+
+		// Rounding
+
+		$roundMask = new Imagick();
+		$roundMask->newPseudoImage($this->getWidth(), $this->getHeight(), "canvas:transparent");
+
+		$draw = new ImagickDraw();
+		$draw->setFillColor(new ImagickPixel("black"));
+		$draw->roundRectangle(0, 0, $this->getWidth() - 1, $this->getHeight() - 1, $this->rounding, $this->rounding);
+
+		$roundMask->drawImage($draw);
+		$roundMask->setImageFormat('png');
+
+		$composite->compositeImage(
+			$roundMask,
+			Imagick::COMPOSITE_DSTIN,
+			0,
+			0,
+			Imagick::CHANNEL_ALPHA
+		);
+
+		$signature->getCanvas()->compositeImage($composite, Imagick::COMPOSITE_DEFAULT, $this->x, $this->y);
 	}
 }

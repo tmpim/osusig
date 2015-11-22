@@ -24,6 +24,7 @@ class TemplateNormal extends Template
 		$pp = $showPP ? $_GET['pp'] : -1;
 		$darkHeader = isset($_GET['darkheader']);
 		$showRankedScore = isset($_GET['rankedscore']);
+		$showXPBar = isset($_GET['xpbar']);
 
 		if ($showPP && ($pp < 0 || $pp > 3)) {
 			$errorImage = new ErrorImage();
@@ -162,7 +163,7 @@ class TemplateNormal extends Template
 			-2
 		);
 
-		$playCountText = number_format($playcount) . ($showPP && $pp == 0 ? ' (' . number_format(floor($ppText)) . 'pp)' : ' (lv' . floor($level) . ')');
+		$playCountText = number_format($playcount) . ($showPP && $pp == 0 ? ' (' . number_format(floor($ppText)) . 'pp)' : ($showXPBar ? '' : ' (lv' . floor($level) . ')'));
 		$playCountValueLabel = new ComponentLabel(
 			$signature,
 			325,
@@ -213,6 +214,19 @@ class TemplateNormal extends Template
 			);
 
 			$this->addComponent($onlineIndicatorImage);
+		}
+
+		if ($showXPBar) {
+			$xpBar = new ComponentXPBar(
+				$signature,
+				92,
+				79,
+				'#ffa200',
+				233,
+				4
+			);
+
+			$this->addComponent($xpBar);
 		}
 
 		// I don't know either.
