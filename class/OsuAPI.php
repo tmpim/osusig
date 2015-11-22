@@ -45,7 +45,7 @@ class OsuAPI
 	 *
 	 * @return array|bool
 	 */
-	public function getUserForMode($username, $mode = "osu")
+	public function getUserForMode($username, $mode = 0)
 	{
 		if ($mode < 4) {
 			$user = $this->mc->get("osusigv3_user_" . $mode . "_" . strtolower($username));
