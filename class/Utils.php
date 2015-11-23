@@ -14,7 +14,7 @@ class Utils
 	/**
 	 * The URL for the online indicator API thingy
 	 */
-	const ONLINE_URL = "http://onlineindicator.lemmmy.pw:3960";
+	const ONLINE_URL = "http://onlineindicator.lemmmy.pw";
 
 	/**
 	 * The memcache singleton
