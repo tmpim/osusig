@@ -52,7 +52,7 @@ class Utils
 		if (!isset($onlineStatus) || empty($onlineStatus)) {
 			$ch = curl_init();
 
-			curl_setopt($ch, CURLOPT_URL, self::ONLINE_URL . '?u=' . str_replace(' ', '_', $username));
+			curl_setopt($ch, CURLOPT_URL, self::ONLINE_URL . '?u=' . urlencode(str_replace(' ', '_', $username)));
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_USERAGENT, self::USER_AGENT);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

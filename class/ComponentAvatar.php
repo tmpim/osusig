@@ -84,7 +84,7 @@ class ComponentAvatar extends Component
 	 * @return Imagick|null The avatar, or nothing.
 	 */
 	private function getAvatar($user) {
-		$avatarURL = self::AVATAR_URL . $user['user_id'] . '_' . time() . '.png';
+		$avatarURL = self::AVATAR_URL . urlencode($user['user_id']) . '_' . urlencode(time()) . '.png';
 
 		$avatar = new Imagick();
 		$cachedPicture = $this->mc->get("osusigv3_avatar_" . $user['user_id']);
