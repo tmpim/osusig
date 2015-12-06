@@ -41,7 +41,7 @@ class ErrorImage
 		$this->canvas->newImage(
 			max($textMetrics['textWidth'], $headingMetrics['textWidth']) + 6,
 			$textMetrics['textHeight'] + $headingMetrics['textHeight'] + 6,
-			new ImagickPixel('transparent'));
+			new ImagickPixel('white'));
 
 		$this->canvas->annotateImage($draw, 3, $headingMetrics['textHeight'] * 2, 0, $errorText);
 
