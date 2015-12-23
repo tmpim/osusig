@@ -19,7 +19,6 @@
                 <br>
                 <li style="background-color: #b17; background-repeat: no-repeat; background-position: center; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.6)" id="colour-hex">custom</li>
                 <br>
-                <br>
                 <input type="text" id="hex-picker" />
             </ul>
         </article>
