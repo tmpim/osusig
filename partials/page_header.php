@@ -10,7 +10,7 @@
 		</div>
 		<div class="generator generator-normal-custom">
 			<img src="img/generator-normal-custom.png">
-			<span>Normal (custom text)</span>
+			<span>Normal <br>(custom text)</span>
 		</div>
 		<div class="generator generator-normal">
 			<img src="img/generator-normal.png">
@@ -18,7 +18,7 @@
 		</div>
 		<div class="generator generator-normal-custom">
 			<img src="img/generator-normal-custom.png">
-			<span>Normal (custom text)</span>
+			<span>Normal <br>(custom text)</span>
 		</div>
 		<div class="generator generator-normal">
 			<img src="img/generator-normal.png">
@@ -26,7 +26,7 @@
 		</div>
 		<div class="generator generator-normal-custom">
 			<img src="img/generator-normal-custom.png">
-			<span>Normal (custom text)</span>
+			<span>Normal <br>(custom text)</span>
 		</div>
 		<div class="generator generator-normal">
 			<img src="img/generator-normal.png">
@@ -34,7 +34,7 @@
 		</div>
 		<div class="generator generator-normal-custom">
 			<img src="img/generator-normal-custom.png">
-			<span>Normal (custom text)</span>
+			<span>Normal <br>(custom text)</span>
 		</div>
 		<div class="generator generator-normal">
 			<img src="img/generator-normal.png">
@@ -42,7 +42,7 @@
 		</div>
 		<div class="generator generator-normal-custom">
 			<img src="img/generator-normal-custom.png">
-			<span>Normal (custom text)</span>
+			<span>Normal <br>(custom text)</span>
 		</div>
 	</div>
 </div>
