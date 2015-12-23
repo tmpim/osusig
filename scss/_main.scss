@@ -1,7 +1,6 @@
 html {
     background-color: white;
-    background: linear-gradient(rgba(255, 255, 255, 0.575) 0%, rgba(255, 255, 255, 1) 300px, rgba(255, 255, 255, 1) 100%),
-                url("../img/tris.png") repeat-x;
+    background: url("../img/triangles-eee.png"), #eee;
 }
 
 body {
@@ -13,34 +12,108 @@ body {
 }
 
 .page-header {
-    margin: 1.25em;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	background: url('../img/triangles-b17.png'), #b17;
+	font-weight: 400;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+	padding: 24px;
+	box-sizing: border-box;
+}
+
+.generator-selector {
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	background: url('../img/triangles-333.png'), #333;
+	font-weight: 400;
+	text-transform: uppercase;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+	padding: 16px;
+	margin-bottom: 24px;
+	box-sizing: border-box;
+	text-align: left;
+
+	.generator-selector-container {
+		width: 100%;
+		display: flex;
+
+		.generator {
+			background-color: #444;
+			color: #fafafa;
+			padding: 8px;
+			border-radius: 4px;
+			cursor: pointer;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+			text-align: center;
+			margin-right: 16px;
+			width: 128px;
+			vertical-align: top;
+			flex: 0 0 128px;
+
+			img {
+				display: block;
+				border-radius: 4px;
+				margin-bottom: 8px;
+			}
+
+			span {
+				display: block;
+			}
+
+			display: inline-block;
+
+			transition: 175ms all ease;
+
+			&.active {
+				background-color: #fff;
+				color: #333;
+
+				&:hover {
+					background-color: #fff;
+					color: #333;
+				}
+			}
+
+			&:hover {
+				background-color: #555;
+				color: #fafafa;
+			}
+
+			&:last-of-type {
+				margin-right: 0;
+			}
+		}
+	}
 }
 
 .title {
     font-weight: 400;
-    font-size: 3em;
+    font-size: 2.75em;
     text-align: center;
     display: block;
 }
 
 .shameless-self-promotion {
-    font-size: 0.9em;
+    font-size: 0.8em;
     text-align: center;
     display: block;
 }
 
 header {
     color: white;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: bold;
     text-align: center;
-    background: url('../img/triangles.png') no-repeat,  url('../img/triangles2.png') no-repeat top right, #b17;
+    background: url('../img/triangles-b17.png'), #b17;
     font-weight: 400;
     text-transform: lowercase;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-    padding: 8px;
-    border-radius: 2px;
+    padding: 16px;
     box-sizing: border-box;
 }
 
@@ -48,7 +121,7 @@ article {
     padding: 18px;
     background-color: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-    margin: 4px 0 24px 0;
+    margin: 0 0 24px 0;
     box-sizing: border-box;
 }
 
@@ -164,6 +237,8 @@ input[type=text], input[type=number], select {
 img.preview {
     display: block;
     margin: 0 auto;
+	max-width: 100%;
+	height: auto;
 }
 
 .lazy {
@@ -172,23 +247,28 @@ img.preview {
 }
 
 a.button {
-    background: url('../img/triangles2.png') no-repeat, #b17;
+    background: #eee;
     padding: 8px 24px;
     border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
-    color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    color: #555;
     text-decoration: none;
     font-family: 'Exo 2', sans-serif;
     display: inline-block;
     margin: 0 auto;
-    transition: 225ms all ease;
+    transition: 175ms all ease;
     cursor: pointer;
     outline: none;
     border: none;
 
     &:hover {
-        background-color: #e39;
+        background-color: #f8f8f8;
     }
+
+	&:active {
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+		background-color: #eaeaea;
+	}
 }
 
 .ppmodes {

@@ -1,31 +1,6 @@
-<html>
-    <head>
-        <title>osu!next Signature Generator</title>
-
-        <link href='https://fonts.googleapis.com/css?family=Exo+2:400,300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="css/app.css">
-
-        <link rel="icon" href="favicon.ico">
-
-        <meta charset='UTF-8'>
-        <meta name='keywords' content='osu, next, signature, generator, forum, sig'>
-        <meta name='description' content='A signature generator in the style of osu!next!'>
-        <meta name='author' content='Lemmmy'>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#bb1177">
-        <meta name='handheldfriendly' content='true'>
-        <meta name='mobileoptimized' content='480'>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-        <script src="js/spectrum.js"></script>
-        <script src="js/app.js"></script>
-    </head>
+<?php include("partials/page_begin.php"); ?>
     <body>
-        <div class="page-header">
-            <span class="title">osu!next Signature Generator</span><br>
-            <span class="shameless-self-promotion">by <a href="https://osu.ppy.sh/u/4656511">Lemmmy</a> - source code available <a href="https://github.com/Lemmmy/osusig">here</a></span>
-        </div>
+        <?php include("partials/page_header.php"); ?>
         <header>Choose a colour</header>
         <article>
             <ul class="colours">
@@ -129,6 +104,8 @@
 	            </span>
             </div>
         </article>
+        <?php include_once('partials/page_scripts.php'); ?>
         <?php include_once('/var/www/req/.analytics.php'); ?>
+        <script src="js/generator-normal.js"></script>
     </body>
 </html>
