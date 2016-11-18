@@ -5,7 +5,6 @@ _Relatively_ up-to-date documentation can be found [at my site here](http://lemm
 
 ## Usage
 The generator itself is in `sig.php`. All templates accepts the following parameters:
-
 * `uname` - **required** The username of the user you want to generate a signature for
 * `colour` - The background and stroke colour of the signature. Valid values are any 6 digit hex value prepended by `hex` or `%23`, or:
 
@@ -43,23 +42,20 @@ TemplateNormal accepts the following:
 | `colour` | `uname`  | `mode`      | Image |
 | -------- | -------- | ----------- |:-----:|
 | `green`  | `Lemmmy` | unspecified | ![](http://lemmmy.pw/osusig/sig.php?colour=green&uname=Lemmmy) |
-| `pink`   | `peppy`  | `1` | ![](http://lemmmy.pw/osusig/sig.php?colour=pink&uname=peppy&mode=1) |
+| `pink`   | `sobatsuyu`  | `1` | ![](http://lemmmy.pw/osusig/sig.php?colour=pink&uname=sobatsuyu&mode=1) |
 | `hexFFAA00`| `hvick225`  | `0` | ![](http://lemmmy.pw/osusig/sig.php?colour=hexFFAA00&uname=hvick225&mode=0) |
 
 _Note:_ `hex` is a workaround for osu!'s gocamo server
 
 ### Live examples
 
-`http://lemmmy.pw/osusig/sig.php?colour=purple&uname=Lemmmy`
-![](http://lemmmy.pw/osusig/sig.php?colour=purple&uname=Lemmmy)
+| URL | `Image` |
+| -------- | :--------: |
+| `http://lemmmy.pw/osusig/sig.php?colour=purple&uname=Lemmmy` | ![](http://lemmmy.pw/osusig/sig.php?colour=purple&uname=Lemmmy) |
+| `http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui&pp=2` | ![](http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui&pp=2)|
+| `http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3&pp=1` |![](http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3&pp=1) |
 
 
-`http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui&pp=2`
-![](http://lemmmy.pw/osusig/sig.php?colour=blue&uname=rrtyui&pp=2)
-
-
-`http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3&pp=1`
-![](http://lemmmy.pw/osusig/sig.php?colour=yellow&uname=jhlee0133&mode=3&pp=1)
 
 ## Requirements
 The generator requires ImageMagick and memcached.
